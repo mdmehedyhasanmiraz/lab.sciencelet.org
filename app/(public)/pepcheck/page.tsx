@@ -23,31 +23,32 @@ export default function PepCheckPage() {
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">PepCheck: Protein Analysis Tool</h1>
-      <InputArea onSubmit={handleSubmit} />
+    <main>
+			<div className="max-w-4xl mx-auto px-4 py-8">
+				<h1 className="text-3xl font-bold mb-6">PepCheck: Protein Analysis Tool</h1>
+				<InputArea onSubmit={handleSubmit} />
 
-      {properties && (
-        <div className="grid gap-6 mt-8">
-          <SequenceLength length={properties.sequenceLength} />
-          <MolecularWeight weight={properties.molecularWeight} />
-          <AcidicBasicResidues 
-            acidicCount={properties.acidicCount} 
-            basicCount={properties.basicCount}
-            acidicPercentage={properties.acidicPercentage}
-            basicPercentage={properties.basicPercentage}
-          />
-          <IsoelectricPoint pI={properties.pI} />
-          <AliphaticIndex aminoAcidCount={properties.aminoAcidCount} sequenceLength={properties.sequenceLength} />
-          <GravyIndex gravy={properties.gravy} />
-          <Solubility solubility={properties.solubility} />
-          <ExtinctionCoefficient extinction={properties.extinctionCoefficient} />
-          <AtomCount atomCount={properties.atomCount} />
-          <AminoAcidComposition aminoAcidCount={properties.aminoAcidCount} total={properties.sequenceLength} />
-        </div>
-      )}
-
-      <CreditsSection />
+				{properties && (
+					<div className="grid gap-6 mt-8">
+						<SequenceLength length={properties.sequenceLength} />
+						<MolecularWeight weight={properties.molecularWeight} />
+						<AcidicBasicResidues 
+							acidicCount={properties.acidicCount} 
+							basicCount={properties.basicCount}
+							acidicPercentage={properties.acidicPercentage}
+							basicPercentage={properties.basicPercentage}
+						/>
+						<IsoelectricPoint pI={properties.pI} />
+						<AliphaticIndex aminoAcidCount={properties.aminoAcidCount} sequenceLength={properties.sequenceLength} />
+						<GravyIndex gravy={properties.gravy} />
+						<Solubility solubility={properties.solubility} />
+						<ExtinctionCoefficient extinction={properties.extinctionCoefficient} />
+						<AtomCount atomCount={properties.atomCount} />
+						<AminoAcidComposition aminoAcidCount={properties.aminoAcidCount} total={properties.sequenceLength} />
+					</div>
+				)}
+			</div>
+			<CreditsSection />
     </main>
   );
 }
