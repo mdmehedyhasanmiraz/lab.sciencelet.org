@@ -13,7 +13,7 @@ import ExtinctionCoefficient from "@/components/tools/ExtinctionCoefficient";
 import AtomCount from "@/components/tools/AtomCount";
 import AminoAcidComposition from "@/components/tools/AminoAcidComposition";
 import { calculateProperties, ProteinProperties } from "@/lib/utils/calculateProperties";
-
+import CreditsSection from "@/components/home/CreditsSection";
 export default function PepCheckPage() {
   const [properties, setProperties] = useState<ProteinProperties | null>(null);
 
@@ -46,6 +46,8 @@ export default function PepCheckPage() {
           <AminoAcidComposition aminoAcidCount={properties.aminoAcidCount} total={properties.sequenceLength} />
         </div>
       )}
+
+      <CreditsSection />
     </main>
   );
 }
