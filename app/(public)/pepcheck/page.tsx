@@ -12,13 +12,12 @@ import Solubility from "@/components/tools/Solubility";
 import ExtinctionCoefficient from "@/components/tools/ExtinctionCoefficient";
 import AtomCount from "@/components/tools/AtomCount";
 import AminoAcidComposition from "@/components/tools/AminoAcidComposition";
-import { calculateProperties } from "@/lib/utils/calculateProperties";
+import { calculateProperties, ProteinProperties } from "@/lib/utils/calculateProperties";
 
 export default function PepCheckPage() {
-  const [properties, setProperties] = useState<any | null>(null);
+  const [properties, setProperties] = useState<ProteinProperties | null>(null);
 
   const handleSubmit = (seq: string) => {
-    setSequence(seq);
     const result = calculateProperties(seq);
     setProperties(result);
   };
