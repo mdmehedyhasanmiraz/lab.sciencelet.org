@@ -15,10 +15,10 @@ export default function CreditsSection() {
           <div>
             <h2 className="text-lg font-bold text-gray-800 mb-2">Contact</h2>
             <p>
-              For technical support, feedback, or scientific questions regarding PepCheck, please contact
-              <a href="mailto:tanbin.jahan.ferdousy@gmail.com" className="text-green-600 ml-1">Tanbin Jahan Ferdousy</a> or
-              <a href="mailto:mehedy.1872@gmail.com" className="text-green-600 ml-1">Md Mehedy Hasan Miraz</a> or
-              <a href="mailto:tahsinrisat2001@gmail.com" className="text-green-600 ml-1">Md Tahsinul Haque Risat</a>
+              For technical support, feedback, or scientific questions regarding PepCheck, please contact{" "}
+              <a href="mailto:tanbin.jahan.ferdousy@gmail.com" className="text-green-600">Tanbin Jahan Ferdousy</a>,{" "}
+              <a href="mailto:mehedy.1872@gmail.com" className="text-green-600">Md Mehedy Hasan Miraz</a>, or{" "}
+              <a href="mailto:tahsinul.haque2001@gmail.com" className="text-green-600">Md Tahsinul Haque Risat</a>. 
               We welcome contributions, bug reports, and suggestions to improve the platform.
             </p>
           </div>
@@ -37,8 +37,6 @@ export default function CreditsSection() {
             <h2 className="text-lg font-bold text-gray-800 mb-2">Attribution</h2>
             <p>
               PepCheck incorporates knowledge and methods derived from publicly available biochemical data and bioinformatics principles. 
-              Core concepts were adapted from well-established tools like
-              <a href="https://web.expasy.org/protparam/" target="_blank" rel="noopener noreferrer" className="text-green-600 ml-1">ExPASy ProtParam</a>.
               Additional references include standard protein property indices, amino acid composition charts, and solubility predictors.
             </p>
           </div>
