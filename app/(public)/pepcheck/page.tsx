@@ -15,7 +15,6 @@ import AminoAcidComposition from "@/components/tools/AminoAcidComposition";
 import { calculateProperties } from "@/lib/utils/calculateProperties";
 
 export default function PepCheckPage() {
-  const [sequence, setSequence] = useState("");
   const [properties, setProperties] = useState<any | null>(null);
 
   const handleSubmit = (seq: string) => {
