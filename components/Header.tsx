@@ -6,9 +6,7 @@ import Link from 'next/link';
 
 const navLinks = [
   { label: "Home", route: "/" },
-  { label: "Plants", route: "/"},
-  { label: "Phytochemicals", route: "/search"},
-  { label: "Advanced Search", route: "/search"},
+  { label: "PepCheck", route: "/pepcheck"},
 ];
 
 export default function Header() {
@@ -18,11 +16,12 @@ export default function Header() {
     <header className="bg-white backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center h-16 px-3">
         {/* Logo */}
-        <div className="flex-shrink-0">
+        {/* <div className="flex-shrink-0">
           <Link href="/">
             <Image src="/logos/logo-floramedix.svg" alt="Logo" width={180} height={50} />
           </Link>
-        </div>
+        </div> */}
+        <Link href="/"><h1 className="text-2xl font-bold">Bioinformatics Tools</h1></Link>
 
         {/* Navigation Links */}
         <nav className="hidden md:flex space-x-1 relative">
