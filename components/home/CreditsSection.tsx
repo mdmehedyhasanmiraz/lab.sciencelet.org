@@ -32,12 +32,65 @@ export default function CreditsSection() {
             </p>
           </div>
   
-          {/* Attribution */}
+          {/* Scientific References */}
           <div>
-            <h2 className="text-lg font-bold text-gray-800 mb-2">Attribution</h2>
+            <h2 className="text-lg font-bold text-gray-800 mb-2">Scientific References</h2>
             <p>
-              PepCheck incorporates knowledge and methods derived from publicly available biochemical data and bioinformatics principles. 
-              Additional references include standard protein property indices, amino acid composition charts, and solubility predictors.
+              PepCheck implements established algorithms and methods from peer-reviewed scientific literature:
+            </p>
+            <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
+              <li>
+                <strong>Isoelectric point (pI):</strong>{" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/8563639/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Bjellqvist et al. (1993)
+                </a> - Electrophoresis 14, 1023-1031
+              </li>
+              <li>
+                <strong>Instability index:</strong>{" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/2075190/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Guruprasad et al. (1990)
+                </a> - Protein Engineering 4, 155-161
+              </li>
+              <li>
+                <strong>Aliphatic index:</strong>{" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/7462208/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Ikai (1980)
+                </a> - J Biochem 88, 1895-1898
+              </li>
+              <li>
+                <strong>Extinction coefficient:</strong>{" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/2610349/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Gill & von Hippel (1989)
+                </a> - Anal Biochem 182, 319-326; {" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/8563639/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Pace et al. (1995)
+                </a> - Protein Sci 11, 2411-2423
+              </li>
+              <li>
+                <strong>N-end rule half-life:</strong>{" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/3018930/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Bachmair et al. (1986)
+                </a> - Science 234, 179-186; {" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/9112437/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Varshavsky (1997)
+                </a> - Genes Cells 2, 13-28
+              </li>
+              <li>
+                <strong>Hydrophobic moment:</strong>{" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/6582470/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Eisenberg et al. (1984)
+                </a> - J Mol Biol 179, 125-142
+              </li>
+              <li>
+                <strong>GRAVY (hydropathy):</strong>{" "}
+                <a href="https://pubmed.ncbi.nlm.nih.gov/7108955/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Kyte & Doolittle (1982)
+                </a> - J Mol Biol 157, 105-132
+              </li>
+            </ul>
+            <p className="mt-2 text-sm text-gray-600">
+              <em>Note:</em> Solubility and aggregation risk values are deterministic heuristics based on compositional analysis 
+              and should be treated as qualitative guidance rather than experimental measurements.
             </p>
           </div>
         </div>

@@ -1,16 +1,26 @@
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 mx-auto border-t border-gray-200 text-black">
-      <div className="text-center max-w-7xl mx-auto py-8 px-3 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
-        <div className="">
-          <p>&copy; {new Date().getFullYear()} <strong>Tanbin Jahan Ferdousy</strong> <i>et al.</i></p>
-        </div>
-        <div className="text-center sm:text-right">
-          <p>
-            This work is licensed under <strong><a href="http://creativecommons.org/licenses/by-nc/4.0/" className="text-green-600">Creative Commons Attribution-NonCommercial 4.0 International License</a></strong>.
-            {/* <Link href="/privacy-policy" className="text-gray-600 hover:text-gray-800">Privacy Policy</Link> |{' '}
-            <Link href="/terms" className="text-gray-600 hover:text-gray-800">Terms of Use</Link> */}
-          </p>
+    <footer className="bg-gradient-to-br from-slate-50 to-blue-50 border-t border-slate-200">
+      <div className="max-w-7xl mx-auto py-8 px-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-600">
+          <div>
+            <p>
+              &copy; {new Date().getFullYear()} <strong className="text-slate-900">Tanbin Jahan Ferdousy</strong> <i>et al.</i>
+            </p>
+          </div>
+          <div className="text-center sm:text-right">
+            <p>
+              Licensed under{' '}
+              <a 
+                href="http://creativecommons.org/licenses/by-nc/4.0/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-blue-600 hover:text-blue-700 underline decoration-blue-200 hover:decoration-blue-400 transition-colors"
+              >
+                CC BY-NC 4.0
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
