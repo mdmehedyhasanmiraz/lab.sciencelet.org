@@ -33,7 +33,7 @@ export default function PepCheckInputPage() {
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
         
-        <div className="max-w-5xl mx-auto px-4 py-16 sm:py-24">
+        <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12">
           {/* Header */}
           <div className="text-center space-y-4 mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-200/50 backdrop-blur-sm">
@@ -67,7 +67,7 @@ export default function PepCheckInputPage() {
 
           {/* Input Card */}
           <div className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-3xl blur opacity-20 group-hover:opacity-30 transition duration-1000" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-3xl blur opacity-20 transition duration-1000" />
             
             <form onSubmit={handleSubmit} className="relative bg-white rounded-2xl shadow-2xl shadow-slate-900/10 p-8 sm:p-10 border border-slate-200/50">
               <div className="flex items-start gap-3 mb-6">
@@ -110,7 +110,7 @@ FDSDAASPRGEPRAPWVEQEGPEYWDRETQSAKEVVKKDQGQGPEVWDRETQSAKEVVK`}
                   type="submit"
                   className="group flex-1 relative px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-200 overflow-hidden"
                 >
-                  <span className="relative flex items-center justify-center gap-2">
+                  <span className="relative z-10 flex items-center justify-center text-white hover:text-white gap-2">
                     Analyze Sequence
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>

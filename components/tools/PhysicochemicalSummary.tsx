@@ -20,6 +20,11 @@ export default function PhysicochemicalSummary({ properties }: Props) {
       reference: { text: "Compositional analysis", url: "https://en.wikipedia.org/wiki/Molecular_mass" },
     },
     {
+      label: "Molecular formula",
+      value: properties.molecularFormula,
+      reference: undefined,
+    },
+    {
       label: "Isoelectric point (theoretical pI)",
       value: properties.pI,
       reference: { text: "Bjellqvist et al. (1993)", url: "https://pubmed.ncbi.nlm.nih.gov/8563639/" },
@@ -92,12 +97,12 @@ export default function PhysicochemicalSummary({ properties }: Props) {
     {
       label: "Solubility (heuristic)",
       value: `${properties.solubility} (score: ${properties.solubilityHeuristicScore})`,
-      reference: { text: "Multi-factor heuristic", url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3309420/" },
+      reference: undefined,
     },
     {
       label: "Aggregation risk (heuristic)",
       value: `${properties.aggregationRiskHeuristic} (score: ${properties.aggregationRiskScore})`,
-      reference: { text: "Compositional heuristic", url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2715531/" },
+      reference: undefined,
     },
   ];
 

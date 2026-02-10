@@ -5,6 +5,7 @@ export interface ProteinProperties {
   sequenceLength: number;
 
   molecularWeight: number; // g/mol (average MW)
+  molecularFormula: string; // e.g., "C₁₀H₁₅N₃O₂S₁"
   gravy: number;
   pI: number;
 
@@ -225,6 +226,15 @@ function computeHydropathyWindowMeanMax(sequence: string, windowSize = 9): numbe
   return maxMean === -Infinity ? 0 : maxMean;
 }
 
+function computeMolecularFormula(atomCount: Record<string, number>): string {
+  const subscript = (n: number) => n.toString().split('').map(d => String.fromCharCode(8320 + parseInt(d))).join('');
+  const elements = ['C', 'H', 'N', 'O', 'S'];
+  const parts = elements
+    .filter(el => (atomCount[el] || 0) > 0)
+    .map(el => `${el}${subscript(atomCount[el])}`);
+  return parts.join('') || '—';
+}
+
 function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
 }
@@ -369,10 +379,13 @@ export function calculateProperties(sequence: string): ProteinProperties {
     hydrophobicMomentHelixMax,
   });
 
+  const molecularFormula = computeMolecularFormula(atomCount);
+
   return {
     sequenceLength: length,
     gravy: parseFloat(gravy.toFixed(5)),
     molecularWeight: parseFloat(molecularWeight.toFixed(2)),
+    molecularFormula,
     aminoAcidCount,
     atomCount,
     netChargePH74: parseFloat(netChargePH74.toFixed(3)),
