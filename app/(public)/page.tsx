@@ -1,3 +1,7 @@
+import HeroSection from "@/components/home/HeroSection";
+import AboutSection from "@/components/home/AboutSection";
+import ResearchSection from "@/components/home/ResearchSection";
+
 export const metadata = {
   title: "Bioinformatics Lab",
   description: "Sciencelet Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
@@ -11,6 +15,9 @@ export const metadata = {
 export default function Home() {
   return (
     <>
+      <HeroSection />
+      <AboutSection />
+      <ResearchSection />
     </>
   );
 }
