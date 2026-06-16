@@ -1,8 +1,8 @@
 export const metadata = {
   title: "Bioinformatics Lab",
-  description: "Oimi Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
-  keywords: ["bioinformatics lab", "bioinformatics", "lab", "oimi", "oimi lab", "oimi bioinformatics lab", "oimi bioinformatics lab bangladesh", "oimi bioinformatics lab bangladesh", "oimi bioinformatics lab bangladesh", "oimi bioinformatics lab bangladesh"],
-  metadataBase: new URL("https://lab.oimi.io"),
+  description: "Sciencelet Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
+  keywords: ["bioinformatics lab", "bioinformatics", "lab", "sciencelet", "sciencelet lab", "sciencelet bioinformatics lab", "sciencelet bioinformatics lab bangladesh", "sciencelet bioinformatics lab bangladesh", "sciencelet bioinformatics lab bangladesh", "sciencelet bioinformatics lab bangladesh"],
+  metadataBase: new URL("https://lab.sciencelet.org"),
   alternates: {
     canonical: `/`,
   },

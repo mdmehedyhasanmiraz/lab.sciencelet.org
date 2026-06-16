@@ -16,10 +16,10 @@ const funnelSans = Funnel_Sans({
 export const metadata: Metadata = {
   title: {
     default: "Bioinformatics Lab",
-    template: "%s | Oimi",
+    template: "%s | Sciencelet",
   },
-  description: "Oimi Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
-  metadataBase: new URL("https://lab.oimi.io"),
+  description: "Sciencelet Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
+  metadataBase: new URL("https://lab.sciencelet.org"),
   keywords: [
     "medicinal plants bangladesh",
     "plant directory",
@@ -34,11 +34,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: {
       default: "Bioinformatics Lab",
-      template: "%s | Oimi",
+      template: "%s | Sciencelet",
     },
-    description: "Oimi Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
-    url: "https://lab.oimi.io",
-      siteName: 'Oimi',
+    description: "Sciencelet Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
+    url: "https://lab.sciencelet.org",
+    siteName: 'Sciencelet',
     images: [
       {
         url: ogImage.src,
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
   twitter: {
     title: {
       default: "Bioinformatics Lab",
-      template: "%s | Oimi",
+      template: "%s | Sciencelet",
     },
-    description: "Oimi Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
+    description: "Sciencelet Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
     images: [
       {
         url: ogImage.src,
