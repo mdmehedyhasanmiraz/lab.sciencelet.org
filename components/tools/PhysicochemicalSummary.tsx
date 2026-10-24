@@ -1,6 +1,5 @@
 import DataTable from "@/components/ui/DataTable";
 import type { ProteinProperties } from "@/lib/utils/calculateProperties";
-import { FlaskConical } from "lucide-react";
 
 type Props = {
   properties: ProteinProperties;
@@ -107,26 +106,8 @@ export default function PhysicochemicalSummary({ properties }: Props) {
   ];
 
   return (
-    <div className="relative group">
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl blur opacity-10 group-hover:opacity-20 transition" />
-      
-      <div className="relative bg-white rounded-xl shadow-xl shadow-slate-900/5 border border-slate-200/50 overflow-hidden">
-        <div className="p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-blue-50">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg">
-              <FlaskConical className="w-5 h-5" />
-            </div>
-            <div>
-              <h2 className="text-lg font-semibold text-slate-900">Physicochemical Properties</h2>
-              <p className="text-sm text-slate-600">Comprehensive sequence-derived metrics</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="p-6">
-          <DataTable rows={rows} />
-        </div>
-      </div>
+    <div className="w-full">
+      <DataTable rows={rows} />
     </div>
   );
 }

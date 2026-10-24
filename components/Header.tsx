@@ -2,47 +2,66 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Dna, Menu, X } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: "Home", route: "/" },
-  { label: "PepCheck", route: "/pepcheck"},
+  { label: "ProtChem", route: "/protchem"},
 ];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 shadow-sm">
+    <header className="bg-white/90 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center h-16 px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg group-hover:shadow-xl transition-shadow">
-            <Dna className="w-5 h-5" />
+          {/* Sciencelet SVG Logo */}
+          <div className="relative flex items-center">
+            <Image
+              src="/logos/logo-sciencelet.svg"
+              alt="Sciencelet"
+              width={140}
+              height={26}
+              priority
+              className="h-6 w-auto object-contain"
+            />
           </div>
-          <h1 className="text-xl font-bold bg-gradient-to-r from-slate-900 to-blue-900 bg-clip-text text-transparent">
-            Bioinformatics Tools
-          </h1>
+
+          {/* "Lab" to the right of Sciencelet logo */}
+          <span className="text-sm uppercase tracking-wider font-extrabold px-2 py-0.5 rounded bg-teal-800 text-teal-50 ml-0.5">
+            Lab
+          </span>
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-2">
+        <nav className="hidden md:flex items-center gap-1.5">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.route}
-              className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all"
+              className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-teal-800 hover:bg-teal-50 rounded-md transition-colors"
             >
               {link.label}
             </Link>
           ))}
+          <a
+            href="https://github.com/mdmehedyhasanmiraz/lab.oimi.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 px-3 py-1.5 text-xs font-semibold text-teal-800 bg-teal-50 border border-teal-200/80 rounded-md hover:bg-teal-100 transition-colors"
+          >
+            Open Source
+          </a>
         </nav>
 
         {/* Hamburger Menu */}
         <div className="md:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2 text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors"
             aria-label="Toggle menu"
           >
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -58,7 +77,7 @@ export default function Header() {
               <li key={item.route}>
                 <Link 
                   href={item.route} 
-                  className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all"
+                  className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-teal-800 hover:bg-teal-50 rounded-md transition-colors"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}

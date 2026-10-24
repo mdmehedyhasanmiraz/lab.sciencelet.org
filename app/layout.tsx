@@ -15,30 +15,31 @@ const funnelSans = Funnel_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Bioinformatics Lab",
-    template: "%s | Sciencelet",
+    default: "Sciencelet Lab | Computational Biology & Bioinformatics",
+    template: "%s | Sciencelet Lab",
   },
-  description: "Sciencelet Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
+  description: "Sciencelet Lab is a computational biology and bioinformatics research laboratory developing open-access analytical tools, algorithms, and biological sequence analytics.",
   metadataBase: new URL("https://lab.sciencelet.org"),
   keywords: [
-    "medicinal plants bangladesh",
-    "plant directory",
-    "medicinal plant directory",
-    "medicinal plant directory bangladesh",
-    "bangladesh medicinal plants",
-    "bangladesh medicinal plant directory",
-    "bangladesh medicinal plant directory of bangladesh",
-    "bangladesh plant directory",
-    "plant directory of bangladesh",
+    "Sciencelet Lab",
+    "Sciencelet",
+    "Bioinformatics Lab",
+    "Computational Biology",
+    "ProtChem",
+    "Protein Sequence Analysis",
+    "Peptide Analysis",
+    "Genomics",
+    "Structural Biology",
+    "Open Science"
   ],
   openGraph: {
     title: {
-      default: "Bioinformatics Lab",
-      template: "%s | Sciencelet",
+      default: "Sciencelet Lab | Computational Biology & Bioinformatics",
+      template: "%s | Sciencelet Lab",
     },
-    description: "Sciencelet Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
+    description: "Sciencelet Lab is a computational biology and bioinformatics research laboratory developing open-access analytical tools, algorithms, and biological sequence analytics.",
     url: "https://lab.sciencelet.org",
-    siteName: 'Sciencelet',
+    siteName: 'Sciencelet Lab',
     images: [
       {
         url: ogImage.src,
@@ -50,10 +51,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: {
-      default: "Bioinformatics Lab",
-      template: "%s | Sciencelet",
+      default: "Sciencelet Lab | Computational Biology & Bioinformatics",
+      template: "%s | Sciencelet Lab",
     },
-    description: "Sciencelet Bioinformatics Lab is a research lab that focuses on the application of computational methods to biological data.",
+    description: "Sciencelet Lab is a computational biology and bioinformatics research laboratory developing open-access analytical tools, algorithms, and biological sequence analytics.",
     images: [
       {
         url: ogImage.src,

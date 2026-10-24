@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import ResultsContent from "@/components/tools/ResultsContent";
 
-export default function PepCheckResultsPage() {
+export default function ProtChemResultsPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">

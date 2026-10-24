@@ -6,7 +6,7 @@ export default function CreditsSection() {
           <div>
             <h2 className="text-lg font-bold text-gray-800 mb-2">Disclaimer</h2>
             <p>
-              PepCheck is a computational tool for analyzing protein and peptide sequences using biochemical and biophysical properties.
+              ProtChem is a computational tool for analyzing protein and peptide sequences using biochemical and biophysical properties.
               It is designed solely for educational and research purposes. The results provided are based on standard empirical formulas and should not be used as a substitute for wet-lab validation or expert biological interpretation.
             </p>
           </div>
@@ -15,7 +15,7 @@ export default function CreditsSection() {
           <div>
             <h2 className="text-lg font-bold text-gray-800 mb-2">Contact</h2>
             <p>
-              For technical support, feedback, or scientific questions regarding PepCheck, please contact{" "}
+              For technical support, feedback, or scientific questions regarding ProtChem, please contact{" "}
               <a href="mailto:tanbin.jahan.ferdousy@gmail.com" className="text-green-600">Tanbin Jahan Ferdousy</a>,{" "}
               <a href="mailto:mehedy.1872@gmail.com" className="text-green-600">Md Mehedy Hasan Miraz</a>, or{" "}
               <a href="mailto:tahsinul.haque2001@gmail.com" className="text-green-600">Md Tahsinul Haque Risat</a>. 
@@ -27,7 +27,7 @@ export default function CreditsSection() {
           <div>
             <h2 className="text-lg font-bold text-gray-800 mb-2">Funding</h2>
             <p>
-              PepCheck is a self-initiated and self-funded project by its contributors. It was developed as part of an effort to enhance accessible bioinformatics tools for protein sequence analysis.
+              ProtChem is a self-initiated and self-funded project by its contributors. It was developed as part of an effort to enhance accessible bioinformatics tools for protein sequence analysis.
               No external grants or institutional funding were received during its development.
             </p>
           </div>
@@ -36,7 +36,7 @@ export default function CreditsSection() {
           <div>
             <h2 className="text-lg font-bold text-gray-800 mb-2">Scientific References</h2>
             <p>
-              PepCheck implements established algorithms and methods from peer-reviewed scientific literature:
+              ProtChem implements established algorithms and methods from peer-reviewed scientific literature:
             </p>
             <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
               <li>

@@ -6,25 +6,43 @@ interface AcidicBasicProps {
 }
 
 export default function AcidicBasicResidues({ acidicCount, basicCount, acidicPercentage, basicPercentage }: AcidicBasicProps) {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div className="relative group/card">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-red-400 to-pink-500 rounded-xl blur opacity-20 group-hover/card:opacity-30 transition" />
-        <div className="relative p-5 rounded-xl bg-gradient-to-br from-red-50 to-pink-50 border border-red-200/50">
-          <div className="text-sm font-semibold text-red-900 mb-2">Acidic Residues</div>
-          <div className="text-3xl font-bold bg-gradient-to-br from-red-600 to-pink-600 bg-clip-text text-transparent">{acidicCount}</div>
-          <div className="text-xs text-red-700 mt-1 font-medium">{acidicPercentage.toFixed(2)}% • D, E</div>
-        </div>
-      </div>
+  const rows = [
+    {
+      group: "Acidic Residues",
+      aminoAcids: "Aspartate (D), Glutamate (E)",
+      count: acidicCount,
+      percentage: `${acidicPercentage.toFixed(2)}%`
+    },
+    {
+      group: "Basic Residues",
+      aminoAcids: "Lysine (K), Arginine (R), Histidine (H)",
+      count: basicCount,
+      percentage: `${basicPercentage.toFixed(2)}%`
+    }
+  ];
 
-      <div className="relative group/card">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-xl blur opacity-20 group-hover/card:opacity-30 transition" />
-        <div className="relative p-5 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/50">
-          <div className="text-sm font-semibold text-blue-900 mb-2">Basic Residues</div>
-          <div className="text-3xl font-bold bg-gradient-to-br from-blue-600 to-indigo-600 bg-clip-text text-transparent">{basicCount}</div>
-          <div className="text-xs text-blue-700 mt-1 font-medium">{basicPercentage.toFixed(2)}% • K, R, H</div>
-        </div>
-      </div>
+  return (
+    <div className="overflow-x-auto w-full">
+      <table className="w-full text-left border-collapse text-sm">
+        <thead>
+          <tr className="border-b border-slate-200">
+            <th className="py-3 pr-6 text-xs font-bold text-teal-950 uppercase tracking-wider">Residue Class</th>
+            <th className="py-3 px-6 text-xs font-bold text-teal-950 uppercase tracking-wider">Amino Acids</th>
+            <th className="py-3 px-6 text-xs font-bold text-teal-950 uppercase tracking-wider">Count</th>
+            <th className="py-3 pl-6 text-xs font-bold text-teal-950 uppercase tracking-wider">Molar Percentage</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-100">
+          {rows.map((row, idx) => (
+            <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
+              <td className="py-3 pr-6 font-semibold text-slate-900 text-xs sm:text-sm">{row.group}</td>
+              <td className="py-3 px-6 text-slate-600 text-xs sm:text-sm">{row.aminoAcids}</td>
+              <td className="py-3 px-6 text-slate-900 font-mono text-xs sm:text-sm font-semibold">{row.count}</td>
+              <td className="py-3 pl-6 text-slate-800 font-mono text-xs sm:text-sm font-semibold">{row.percentage}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

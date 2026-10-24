@@ -1,16 +1,29 @@
-"use client"
+"use client";
 
+import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { ArrowLeft, Copy, Check, Share2, Dna } from "lucide-react";
+import { 
+  ArrowLeft, 
+  Copy, 
+  Check, 
+  Share2, 
+  Dna, 
+  FlaskConical, 
+  PieChart, 
+  Atom, 
+  Binary 
+} from "lucide-react";
 import { calculateProperties, type ProteinProperties } from "@/lib/utils/calculateProperties";
 import PhysicochemicalSummary from "./PhysicochemicalSummary";
 import AcidicBasicResidues from "./AcidicBasicResidues";
 import AliphaticIndex from "./AliphaticIndex";
 import AtomCount from "./AtomCount";
 import AminoAcidComposition from "./AminoAcidComposition";
-import CollapsibleSection from "@/components/ui/CollapsibleSection";
+import PropertyRadar from "./PropertyRadar";
 import CreditsSection from "@/components/home/CreditsSection";
+import AnalysisProgress from "./AnalysisProgress";
+
+type TabId = "physicochemical" | "composition" | "atomic" | "aminoAcids";
 
 export default function ResultsContent() {
   const searchParams = useSearchParams();
@@ -18,28 +31,33 @@ export default function ResultsContent() {
   const sequence = searchParams.get("sequence");
   
   const [properties, setProperties] = useState<ProteinProperties | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabId>("physicochemical");
 
   useEffect(() => {
     if (sequence) {
-      const result = calculateProperties(sequence);
-      setProperties(result);
+      try {
+        const result = calculateProperties(sequence);
+        setProperties(result);
+      } catch (err) {
+        console.error("Calculation error", err);
+      }
     }
   }, [sequence]);
 
   if (!sequence) {
-    router.push("/pepcheck");
+    router.push("/protchem");
     return null;
   }
 
-  if (!properties) {
+  // Show scientific progress sequence first
+  if (isAnalyzing || !properties) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent" />
-          <p className="mt-4 text-slate-600">Computing properties...</p>
-        </div>
-      </div>
+      <AnalysisProgress 
+        sequenceLength={sequence.length} 
+        onComplete={() => setIsAnalyzing(false)} 
+      />
     );
   }
 
@@ -52,7 +70,7 @@ export default function ResultsContent() {
   const handleShare = async () => {
     if (navigator.share) {
       await navigator.share({
-        title: "PepCheck Analysis Results",
+        title: "ProtChem Analysis Results",
         url: window.location.href
       });
     } else {
@@ -61,144 +79,165 @@ export default function ResultsContent() {
     }
   };
 
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
-        {/* Header Actions */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <button
-            onClick={() => router.push("/pepcheck")}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 bg-white/70 backdrop-blur-sm rounded-lg border border-slate-200 hover:bg-white transition-all shadow-sm"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            New Analysis
-          </button>
+  const tabs: { id: TabId; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+    { id: "physicochemical", label: "Physicochemical Properties", icon: FlaskConical },
+    { id: "composition", label: "Composition & Residue Classes", icon: PieChart },
+    { id: "atomic", label: "Atomic Composition", icon: Atom },
+    { id: "aminoAcids", label: "Amino Acid Composition", icon: Binary },
+  ];
 
-          <div className="flex gap-2">
+  return (
+    <main className="min-h-screen bg-white pb-20 w-full">
+      {/* Flat Teal Header with Tool Name and Full Width Container */}
+      <div className="bg-teal-900 text-white py-8 border-b border-teal-800 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-teal-800 text-teal-200">
+                Sequence Analysis
+              </span>
+              <span className="text-xs text-teal-200/80 font-mono">
+                {properties.sequenceLength} aa
+              </span>
+            </div>
+            {/* Replaced header with the actual tool name */}
+            <h1 className="text-3xl font-bold tracking-tight text-white">
+              ProtChem
+            </h1>
+          </div>
+
+          {/* Action buttons */}
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => router.push("/protchem")}
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-medium text-white bg-teal-800 hover:bg-teal-700 rounded transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>New Analysis</span>
+            </button>
+
             <button
               onClick={handleShare}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 bg-white/70 backdrop-blur-sm rounded-lg border border-slate-200 hover:bg-white transition-all"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-medium text-teal-950 bg-teal-100 hover:bg-white rounded transition-colors cursor-pointer"
             >
-              <Share2 className="w-4 h-4" />
-              Share
+              <Share2 className="w-4 h-4 text-teal-800" />
+              <span>Share</span>
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Sequence Card */}
-        <div className="relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl blur opacity-10 group-hover:opacity-20 transition" />
-          
-          <div className="relative bg-white rounded-xl shadow-xl shadow-slate-900/5 border border-slate-200/50 overflow-hidden">
-            <div className="p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-blue-50">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg">
-                    <Dna className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-semibold text-slate-900">Submitted Sequence</h2>
-                    <p className="text-sm text-slate-600">{properties.sequenceLength} residues</p>
-                  </div>
-                </div>
+      {/* Main Full-Width Content on Clean White Background (No nested cards) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8 w-full">
+        {/* Submitted Sequence Section - Borderless, open layout */}
+        <div className="pb-6 border-b border-slate-200">
+          <div className="flex items-center justify-between gap-4 mb-3">
+            <div className="flex items-center gap-2.5">
+              <Dna className="w-4 h-4 text-teal-800" />
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                Submitted FASTA Sequence ({properties.sequenceLength} residues)
+              </h2>
+            </div>
 
+            <button
+              onClick={handleCopy}
+              className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-600 hover:text-slate-900 rounded hover:bg-slate-100 transition-colors cursor-pointer"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Copied</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Copy Sequence</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          <div className="bg-slate-50 p-4 rounded max-h-36 overflow-y-auto">
+            <pre className="font-mono text-xs text-slate-700 whitespace-pre-wrap break-all leading-relaxed">
+              {sequence.match(/.{1,60}/g)?.join("\n")}
+            </pre>
+          </div>
+        </div>
+
+        {/* Horizontal Navigation Tabs (Flat, borderless bar) */}
+        <div>
+          <div className="flex border-b border-slate-200 space-x-1 sm:space-x-4 overflow-x-auto pb-0.5">
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
                 <button
-                  onClick={handleCopy}
-                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 bg-white rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors"
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`inline-flex items-center gap-2 py-3 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
+                    isActive
+                      ? "border-teal-800 text-teal-900"
+                      : "border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300"
+                  }`}
                 >
-                  {copied ? (
-                    <>
-                      <Check className="w-4 h-4 text-emerald-600" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4" />
-                      Copy
-                    </>
-                  )}
+                  <Icon className={`w-4 h-4 ${isActive ? "text-teal-800" : "text-slate-400"}`} />
+                  <span>{tab.label}</span>
                 </button>
-              </div>
-            </div>
-
-            <div className="p-6 bg-slate-50/50">
-              <pre className="font-mono text-sm text-slate-700 whitespace-pre-wrap break-all leading-relaxed">
-                {sequence.match(/.{1,60}/g)?.join("\n")}
-              </pre>
-            </div>
+              );
+            })}
           </div>
-        </div>
 
-        {/* Results Grid */}
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main Results */}
-          <div className="lg:col-span-2 space-y-6">
-            <PhysicochemicalSummary properties={properties} />
+          {/* Active Tab Table Display (Full Width, Cardless, Borderless Table presentation) */}
+          <div className="pt-6 w-full">
+            {activeTab === "physicochemical" && (
+              <div className="w-full">
+                <PhysicochemicalSummary properties={properties} />
+              </div>
+            )}
 
-            <CollapsibleSection title="📊 Composition & Residue Classes" defaultOpen>
-              <div className="space-y-4">
-                <AcidicBasicResidues
-                  acidicCount={properties.acidicCount}
-                  basicCount={properties.basicCount}
-                  acidicPercentage={properties.acidicPercentage}
-                  basicPercentage={properties.basicPercentage}
-                />
-                <AliphaticIndex
+            {activeTab === "composition" && (
+              <div className="w-full space-y-6">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900 mb-2 uppercase tracking-wider">Acidic & Basic Residues</h3>
+                  <AcidicBasicResidues
+                    acidicCount={properties.acidicCount}
+                    basicCount={properties.basicCount}
+                    acidicPercentage={properties.acidicPercentage}
+                    basicPercentage={properties.basicPercentage}
+                  />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900 mb-2 uppercase tracking-wider">Thermostability Index</h3>
+                  <AliphaticIndex
+                    aminoAcidCount={properties.aminoAcidCount}
+                    sequenceLength={properties.sequenceLength}
+                  />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "atomic" && (
+              <div className="w-full">
+                <AtomCount atomCount={properties.atomCount} />
+              </div>
+            )}
+
+            {activeTab === "aminoAcids" && (
+              <div className="w-full">
+                <AminoAcidComposition
                   aminoAcidCount={properties.aminoAcidCount}
-                  sequenceLength={properties.sequenceLength}
+                  total={properties.sequenceLength}
                 />
               </div>
-            </CollapsibleSection>
-
-            <CollapsibleSection title="⚛️ Atomic Composition" defaultOpen={false}>
-              <AtomCount atomCount={properties.atomCount} />
-            </CollapsibleSection>
-
-            <CollapsibleSection title="🧬 Amino Acid Composition" defaultOpen={false}>
-              <AminoAcidComposition
-                aminoAcidCount={properties.aminoAcidCount}
-                total={properties.sequenceLength}
-              />
-            </CollapsibleSection>
-          </div>
-
-          {/* Quick Stats Sidebar */}
-          <div className="space-y-4">
-            <div className="bg-white rounded-xl shadow-lg shadow-slate-900/5 border border-slate-200/50 p-6">
-              <h3 className="text-sm font-semibold text-slate-900 mb-4">Quick Stats</h3>
-              <div className="space-y-4">
-                {[
-                  { label: "Length", value: `${properties.sequenceLength} aa` },
-                  { label: "Molecular Weight", value: `${properties.molecularWeight.toFixed(2)} Da` },
-                  { label: "Theoretical pI", value: properties.pI.toFixed(2) },
-                  { label: "Net Charge (pH 7.4)", value: properties.netChargePH74.toFixed(2) },
-                  { label: "GRAVY", value: properties.gravy.toFixed(5) },
-                  { label: "Instability Index", value: properties.instabilityIndex.toFixed(2) },
-                  { label: "Aromaticity", value: `${(parseFloat(properties.aromaticity.toString()) * 100).toFixed(2)}%` }
-                ].map((stat, i) => (
-                  <div key={i} className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
-                    <span className="text-sm text-slate-600">{stat.label}</span>
-                    <span className="text-sm font-semibold text-slate-900">{stat.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
-              <h3 className="text-sm font-semibold mb-2">Analysis Status</h3>
-              <p className="text-sm opacity-90 mb-3">
-                {properties.instabilityIndex > 40 ? "Unstable" : "Stable"} • {properties.solubility}
-              </p>
-              <div className="text-xs opacity-75">
-                Based on Guruprasad instability index and multi-factor solubility heuristic
-              </div>
-            </div>
+            )}
           </div>
         </div>
+
+        {/* Visual Property Radar at the bottom */}
+        <PropertyRadar properties={properties} />
       </div>
 
       <CreditsSection />
     </main>
   );
 }
-

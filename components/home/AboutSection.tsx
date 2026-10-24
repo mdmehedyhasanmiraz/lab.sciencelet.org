@@ -1,49 +1,83 @@
-import React from 'react';
+import { Target, Lightbulb, Compass } from 'lucide-react';
 
 const AboutSection = () => {
+  const pillars = [
+    {
+      icon: Target,
+      title: "Our Mission",
+      description: "Sciencelet Lab is dedicated to advancing computational biology by creating accessible, reproducible, and verifiable analytical software for researchers worldwide."
+    },
+    {
+      icon: Lightbulb,
+      title: "Algorithmic Precision",
+      description: "Every calculation in our tools faithfully mirrors peer-reviewed biophysical scales, citing established literature from Bjellqvist, Kyte-Doolittle, and Guruprasad."
+    },
+    {
+      icon: Compass,
+      title: "Open Discovery",
+      description: "We strongly support open science. Our platforms are designed with transparency, open documentation, and permissive creative commons licensing."
+    }
+  ];
+
   return (
-    <section className="py-16 bg-white">
+    <section id="about" className="py-20 bg-gradient-to-b from-teal-50/50 via-white to-slate-50 relative border-t border-teal-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:text-center">
-          <h2 className="text-base text-teal-600 font-semibold tracking-wide uppercase">About Us</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            A Better Way to Understand Biology
-          </p>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Our mission is to bridge the gap between computer science and biology, providing innovative tools and insights to accelerate scientific discovery.
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-semibold uppercase tracking-wider mb-3">
+            About The Lab
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Deciphering Complex Biology Through Computation
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            Sciencelet Lab bridges modern web engineering and molecular sciences, empowering researchers with instant computational insights into biomolecular structure and dynamics.
           </p>
         </div>
 
-        <div className="mt-10">
-          <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-            <div className="relative">
-              <dt>
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-teal-500 text-white">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+        {/* Pillars Grid */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {pillars.map((pillar, idx) => {
+            const Icon = pillar.icon;
+            return (
+              <div 
+                key={idx}
+                className="bg-white rounded-2xl p-8 border border-teal-100/80 shadow-sm hover:shadow-lg hover:border-teal-300 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-teal-50 border border-teal-200/60 flex items-center justify-center text-teal-700 mb-6">
+                  <Icon className="w-6 h-6" />
                 </div>
-                <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Advanced Analytics</p>
-              </dt>
-              <dd className="mt-2 ml-16 text-base text-gray-500">
-                Leveraging state-of-the-art machine learning and statistical methods to uncover hidden patterns in complex biological datasets.
-              </dd>
-            </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  {pillar.title}
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {pillar.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
 
-            <div className="relative">
-              <dt>
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-teal-500 text-white">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                  </svg>
-                </div>
-                <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Open Science</p>
-              </dt>
-              <dd className="mt-2 ml-16 text-base text-gray-500">
-                Committed to reproducibility and transparency, we develop open-source software and make our research findings accessible to everyone.
-              </dd>
+        {/* Lab Commitment Banner */}
+        <div className="mt-16 bg-gradient-to-r from-teal-900 via-teal-800 to-slate-900 rounded-2xl p-8 sm:p-10 text-white shadow-xl relative overflow-hidden">
+          <div className="absolute right-0 top-0 w-80 h-80 bg-teal-500/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">
+                Commitment to Reproducible Science
+              </h3>
+              <p className="text-sm sm:text-base text-teal-100/80 leading-relaxed">
+                We believe scientific software should be transparent, deterministic, and freely verifiable. From amino acid compositions to hydropathy indices, our methods are systematically documented.
+              </p>
             </div>
-          </dl>
+            <div className="shrink-0 flex items-center gap-3">
+              <a
+                href="mailto:mehedy.1872@gmail.com"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-semibold text-sm transition-all shadow-md"
+              >
+                Collaborate With Us
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
