@@ -165,23 +165,25 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
   }, [properties]);
 
   /**
-   * Geometry with generous margins to prevent text clipping on SVG/PNG download:
-   * viewBox: 0 0 680 680
-   * center: (340, 340)
-   * radius: 180 (leaves 160px margin on all sides for multi-line labels)
+   * Generous wide dimensions to provide ample horizontal clearance for side labels:
+   * width: 1060px, height: 600px
+   * center: (530, 300)
+   * radius: 155px (gives >370px horizontal clearance on left and right poles)
    */
-  const size = 680;
-  const center = size / 2;
-  const radius = 180;
-  const labelDistance = radius + 34; // 214px from center
+  const width = 1060;
+  const height = 600;
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const radius = 155;
+  const labelDistance = radius + 28;
   const levels = [0.25, 0.5, 0.75, 1.0];
   const numAxes = axes.length;
 
   const getCoordinates = (index: number, rVal: number) => {
     const angle = (Math.PI * 2 * index) / numAxes - Math.PI / 2;
     return {
-      x: center + rVal * Math.cos(angle),
-      y: center + rVal * Math.sin(angle)
+      x: centerX + rVal * Math.cos(angle),
+      y: centerY + rVal * Math.sin(angle)
     };
   };
 
@@ -193,16 +195,16 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
     })
     .join(" ");
 
-  // Export handlers with exact full SVG viewBox
+  // Export handlers with exact wide canvas dimensions
   const downloadSVG = () => {
     if (!svgRef.current) return;
     setDownloadingFormat("svg");
 
     const svgElement = svgRef.current.cloneNode(true) as SVGSVGElement;
     svgElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    svgElement.setAttribute("viewBox", `0 0 ${size} ${size}`);
-    svgElement.setAttribute("width", size.toString());
-    svgElement.setAttribute("height", size.toString());
+    svgElement.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svgElement.setAttribute("width", width.toString());
+    svgElement.setAttribute("height", height.toString());
 
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svgElement);
@@ -229,9 +231,9 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
 
     const svgElement = svgRef.current.cloneNode(true) as SVGSVGElement;
     svgElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    svgElement.setAttribute("viewBox", `0 0 ${size} ${size}`);
-    svgElement.setAttribute("width", size.toString());
-    svgElement.setAttribute("height", size.toString());
+    svgElement.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svgElement.setAttribute("width", width.toString());
+    svgElement.setAttribute("height", height.toString());
 
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svgElement);
@@ -241,10 +243,10 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
     const image = new Image();
     image.crossOrigin = "anonymous";
     image.onload = () => {
-      const scale = 2; // 2x high-resolution crisp export (1360 x 1360 px)
+      const scale = 2; // 2x high-resolution crisp export (1760 x 1240 px)
       const canvas = document.createElement("canvas");
-      canvas.width = size * scale;
-      canvas.height = size * scale;
+      canvas.width = width * scale;
+      canvas.height = height * scale;
       const ctx = canvas.getContext("2d");
 
       if (ctx) {
@@ -343,14 +345,14 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
         </div>
       </div>
 
-      {/* Centered Radar SVG with unclipped margins */}
-      <div className="w-full flex justify-center items-center py-4">
+      {/* Centered Wide Radar SVG with ample lateral clearance */}
+      <div className="w-full flex justify-center items-center py-4 overflow-x-auto">
         <div className="relative shrink-0 flex items-center justify-center max-w-full">
           <svg 
             ref={svgRef}
-            width={size} 
-            height={size} 
-            viewBox={`0 0 ${size} ${size}`} 
+            width={width} 
+            height={height} 
+            viewBox={`0 0 ${width} ${height}`} 
             className="overflow-visible max-w-full h-auto select-none font-sans"
           >
             {/* Concentric Web Rings */}
@@ -380,8 +382,8 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
               return (
                 <line
                   key={i}
-                  x1={center}
-                  y1={center}
+                  x1={centerX}
+                  y1={centerY}
                   x2={x}
                   y2={y}
                   stroke="#cbd5e1"
@@ -410,8 +412,16 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
               const angle = (Math.PI * 2 * i) / numAxes - Math.PI / 2;
               const cos = Math.cos(angle);
               let textAnchor = "middle";
-              if (cos > 0.3) textAnchor = "start";
-              else if (cos < -0.3) textAnchor = "end";
+              let xOffset = 0;
+
+              // Adjust text anchor and give spacing for left and right poles
+              if (cos > 0.15) {
+                textAnchor = "start";
+                xOffset = 6;
+              } else if (cos < -0.15) {
+                textAnchor = "end";
+                xOffset = -6;
+              }
 
               return (
                 <g 
@@ -436,22 +446,22 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
 
                   {/* Axis Label */}
                   <text
-                    x={lblX}
+                    x={lblX + xOffset}
                     y={lblY - 3}
                     textAnchor={textAnchor}
                     dominantBaseline="middle"
-                    className={`text-[11px] font-semibold transition-colors ${
+                    className={`text-[12px] font-semibold transition-colors ${
                       isHovered ? "fill-orange-950 font-bold" : "fill-slate-800"
                     }`}
                   >
                     {axis.label}
                   </text>
                   <text
-                    x={lblX}
-                    y={lblY + 11}
+                    x={lblX + xOffset}
+                    y={lblY + 13}
                     textAnchor={textAnchor}
                     dominantBaseline="middle"
-                    className={`text-[10px] font-mono ${
+                    className={`text-[11px] font-mono ${
                       isHovered ? "fill-orange-800 font-bold" : "fill-slate-500"
                     }`}
                   >
