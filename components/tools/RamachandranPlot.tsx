@@ -27,14 +27,16 @@ export default function RamachandranPlot({
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   // SVG dimensions: Includes square plot area on the left and integrated legend on the right
-  const svgWidth = 920;
+  const svgWidth = 950;
   const svgHeight = 680;
-  const padding = 65;
-  const plotArea = svgHeight - padding * 2; // 550px square plot [padding .. padding + plotArea]
+  const paddingLeft = 85; // Shifted right so Y-axis labels and numbers have generous breathing room
+  const paddingTop = 60;
+  const paddingBottom = 65;
+  const plotArea = svgHeight - paddingTop - paddingBottom; // 555px square plot
 
-  // Coordinate transforms: Map [-180, 180] to [padding, padding + plotArea]
-  const phiToX = (phi: number) => padding + ((phi + 180) / 360) * plotArea;
-  const psiToY = (psi: number) => svgHeight - padding - ((psi + 180) / 360) * plotArea;
+  // Coordinate transforms: Map [-180, 180] to [paddingLeft, paddingLeft + plotArea]
+  const phiToX = (phi: number) => paddingLeft + ((phi + 180) / 360) * plotArea;
+  const psiToY = (psi: number) => svgHeight - paddingBottom - ((psi + 180) / 360) * plotArea;
 
   const pointsToSVG = (pts: [number, number][]) =>
     pts.map(([phi, psi]) => `${phiToX(phi).toFixed(1)},${psiToY(psi).toFixed(1)}`).join(" ");
@@ -47,6 +49,18 @@ export default function RamachandranPlot({
     if (filterType === "PRO" && !r.isProline) return false;
     return true;
   });
+
+  // Calculate percentages and counts for each region based on currently displayed/filtered residues
+  const totalAnalyzed = filteredResidues.filter((r) => r.phi !== null && r.psi !== null).length;
+  const coreCount = filteredResidues.filter((r) => r.region === "core").length;
+  const allowedCount = filteredResidues.filter((r) => r.region === "allowed").length;
+  const generousCount = filteredResidues.filter((r) => r.region === "generous").length;
+  const outlierCount = filteredResidues.filter((r) => r.region === "outlier").length;
+
+  const corePercent = totalAnalyzed > 0 ? ((coreCount / totalAnalyzed) * 100).toFixed(1) : "0.0";
+  const allowedPercent = totalAnalyzed > 0 ? ((allowedCount / totalAnalyzed) * 100).toFixed(1) : "0.0";
+  const generousPercent = totalAnalyzed > 0 ? ((generousCount / totalAnalyzed) * 100).toFixed(1) : "0.0";
+  const outlierPercent = totalAnalyzed > 0 ? ((outlierCount / totalAnalyzed) * 100).toFixed(1) : "0.0";
 
   // Export handlers
   const downloadSVG = () => {
@@ -269,7 +283,7 @@ export default function RamachandranPlot({
           >
             <defs>
               <clipPath id="plot-area-clip">
-                <rect x={padding} y={padding} width={plotArea} height={plotArea} />
+                <rect x={paddingLeft} y={paddingTop} width={plotArea} height={plotArea} />
               </clipPath>
               {/* Drop shadow for floating card tooltip */}
               <filter id="tooltip-shadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -281,8 +295,8 @@ export default function RamachandranPlot({
             <g clipPath="url(#plot-area-clip)">
               {/* White Background for Disallowed / Outlier space */}
               <rect
-                x={padding}
-                y={padding}
+                x={paddingLeft}
+                y={paddingTop}
                 width={plotArea}
                 height={plotArea}
                 fill="#ffffff"
@@ -330,18 +344,18 @@ export default function RamachandranPlot({
               {/* Major Dotted Axes Lines (0 deg lines) */}
               <line
                 x1={phiToX(0)}
-                y1={padding}
+                y1={paddingTop}
                 x2={phiToX(0)}
-                y2={svgHeight - padding}
+                y2={svgHeight - paddingBottom}
                 stroke="#475569"
                 strokeWidth="0.8"
                 strokeDasharray="4 3"
                 opacity={0.65}
               />
               <line
-                x1={padding}
+                x1={paddingLeft}
                 y1={psiToY(0)}
-                x2={padding + plotArea}
+                x2={paddingLeft + plotArea}
                 y2={psiToY(0)}
                 stroke="#475569"
                 strokeWidth="0.8"
@@ -394,8 +408,8 @@ export default function RamachandranPlot({
 
             {/* Plot Border */}
             <rect
-              x={padding}
-              y={padding}
+              x={paddingLeft}
+              y={paddingTop}
               width={plotArea}
               height={plotArea}
               fill="none"
@@ -409,16 +423,16 @@ export default function RamachandranPlot({
                 {/* Bottom X-axis ticks (Phi) */}
                 <line
                   x1={phiToX(deg)}
-                  y1={svgHeight - padding}
+                  y1={svgHeight - paddingBottom}
                   x2={phiToX(deg)}
-                  y2={svgHeight - padding + (deg % 90 === 0 ? 7 : 4)}
+                  y2={svgHeight - paddingBottom + (deg % 90 === 0 ? 7 : 4)}
                   stroke="#000000"
                   strokeWidth="1.2"
                 />
                 {deg % 45 === 0 && (
                   <text
                     x={phiToX(deg)}
-                    y={svgHeight - padding + 20}
+                    y={svgHeight - paddingBottom + 20}
                     textAnchor="middle"
                     fontSize="12"
                     fontFamily="system-ui, -apple-system, sans-serif"
@@ -431,16 +445,16 @@ export default function RamachandranPlot({
 
                 {/* Left Y-axis ticks (Psi) */}
                 <line
-                  x1={padding}
+                  x1={paddingLeft}
                   y1={psiToY(deg)}
-                  x2={padding - (deg % 90 === 0 ? 7 : 4)}
+                  x2={paddingLeft - (deg % 90 === 0 ? 7 : 4)}
                   y2={psiToY(deg)}
                   stroke="#000000"
                   strokeWidth="1.2"
                 />
                 {deg % 45 === 0 && (
                   <text
-                    x={padding - 10}
+                    x={paddingLeft - 10}
                     y={psiToY(deg) + 4}
                     textAnchor="end"
                     fontSize="12"
@@ -455,18 +469,18 @@ export default function RamachandranPlot({
                 {/* Top X-axis ticks */}
                 <line
                   x1={phiToX(deg)}
-                  y1={padding}
+                  y1={paddingTop}
                   x2={phiToX(deg)}
-                  y2={padding - (deg % 90 === 0 ? 7 : 4)}
+                  y2={paddingTop - (deg % 90 === 0 ? 7 : 4)}
                   stroke="#000000"
                   strokeWidth="1"
                 />
 
                 {/* Right border ticks */}
                 <line
-                  x1={padding + plotArea}
+                  x1={paddingLeft + plotArea}
                   y1={psiToY(deg)}
-                  x2={padding + plotArea + (deg % 90 === 0 ? 7 : 4)}
+                  x2={paddingLeft + plotArea + (deg % 90 === 0 ? 7 : 4)}
                   y2={psiToY(deg)}
                   stroke="#000000"
                   strokeWidth="1"
@@ -476,7 +490,7 @@ export default function RamachandranPlot({
 
             {/* Greek Axis Titles: φ and ψ */}
             <text
-              x={padding + plotArea / 2}
+              x={paddingLeft + plotArea / 2}
               y={svgHeight - 18}
               textAnchor="middle"
               fontSize="17"
@@ -489,8 +503,8 @@ export default function RamachandranPlot({
             </text>
 
             <text
-              x={22}
-              y={padding + plotArea / 2}
+              x={28}
+              y={paddingTop + plotArea / 2}
               textAnchor="middle"
               fontSize="17"
               fontFamily="system-ui, -apple-system, sans-serif"
@@ -502,26 +516,14 @@ export default function RamachandranPlot({
             </text>
 
             {/* =========================================================================
-                INTEGRATED LEGEND (Visible inside SVG, exported on both PNG & SVG)
+                CLEAN MINIMAL LEGEND (Directly on white background, no subheadings/boxes)
                ========================================================================= */}
-            <g transform={`translate(${padding + plotArea + 28}, ${padding})`}>
-              {/* Outer Legend Panel Box */}
-              <rect
-                x="0"
-                y="0"
-                width="240"
-                height={plotArea}
-                rx="6"
-                fill="#f8fafc"
-                stroke="#cbd5e1"
-                strokeWidth="1"
-              />
-
-              {/* Panel Header */}
+            <g transform={`translate(${paddingLeft + plotArea + 35}, ${paddingTop + 20})`}>
+              {/* Main Header */}
               <text
-                x="16"
-                y="28"
-                fontSize="13"
+                x="0"
+                y="14"
+                fontSize="14"
                 fontWeight="700"
                 fontFamily="system-ui, -apple-system, sans-serif"
                 fill="#0f172a"
@@ -529,119 +531,35 @@ export default function RamachandranPlot({
                 Conformational Regions
               </text>
 
-              {/* Subtitle */}
-              <text
-                x="16"
-                y="46"
-                fontSize="11"
-                fontFamily="system-ui, -apple-system, sans-serif"
-                fill="#64748b"
-              >
-                Ramachandran energy zones
-              </text>
-
-              <line x1="16" y1="58" x2="224" y2="58" stroke="#e2e8f0" strokeWidth="1" />
-
               {/* Item 1: Highly Favored */}
-              <g transform="translate(16, 74)">
+              <g transform="translate(0, 42)">
                 <rect x="0" y="0" width="16" height="16" rx="2" fill="#1d4ed8" stroke="#1e40af" strokeWidth="0.8" />
-                <text x="26" y="12" fontSize="11.5" fontWeight="600" fontFamily="system-ui, sans-serif" fill="#1e293b">
-                  Highly Favored
-                </text>
-                <text x="26" y="26" fontSize="10" fontFamily="system-ui, sans-serif" fill="#64748b">
-                  Core energy minima
+                <text x="26" y="13" fontSize="12" fontWeight="500" fontFamily="system-ui, sans-serif" fill="#1e293b">
+                  Highly Favored <tspan fontWeight="600" fill="#1d4ed8">({corePercent}%)</tspan>
                 </text>
               </g>
 
               {/* Item 2: Allowed Region */}
-              <g transform="translate(16, 120)">
+              <g transform="translate(0, 76)">
                 <rect x="0" y="0" width="16" height="16" rx="2" fill="#60a5fa" stroke="#3b82f6" strokeWidth="0.8" />
-                <text x="26" y="12" fontSize="11.5" fontWeight="600" fontFamily="system-ui, sans-serif" fill="#1e293b">
-                  Allowed Region
-                </text>
-                <text x="26" y="26" fontSize="10" fontFamily="system-ui, sans-serif" fill="#64748b">
-                  Conformationally valid
+                <text x="26" y="13" fontSize="12" fontWeight="500" fontFamily="system-ui, sans-serif" fill="#1e293b">
+                  Allowed Region <tspan fontWeight="600" fill="#2563eb">({allowedPercent}%)</tspan>
                 </text>
               </g>
 
               {/* Item 3: Generously Allowed */}
-              <g transform="translate(16, 166)">
+              <g transform="translate(0, 110)">
                 <rect x="0" y="0" width="16" height="16" rx="2" fill="#dbeafe" stroke="#bfdbfe" strokeWidth="0.8" />
-                <text x="26" y="12" fontSize="11.5" fontWeight="600" fontFamily="system-ui, sans-serif" fill="#1e293b">
-                  Generously Allowed
-                </text>
-                <text x="26" y="26" fontSize="10" fontFamily="system-ui, sans-serif" fill="#64748b">
-                  Steric boundary zone
+                <text x="26" y="13" fontSize="12" fontWeight="500" fontFamily="system-ui, sans-serif" fill="#1e293b">
+                  Generously Allowed <tspan fontWeight="600" fill="#64748b">({generousPercent}%)</tspan>
                 </text>
               </g>
 
               {/* Item 4: Disallowed Outlier */}
-              <g transform="translate(16, 212)">
+              <g transform="translate(0, 144)">
                 <rect x="0" y="0" width="16" height="16" rx="2" fill="#ffffff" stroke="#cbd5e1" strokeWidth="0.8" />
-                <text x="26" y="12" fontSize="11.5" fontWeight="600" fontFamily="system-ui, sans-serif" fill="#e11d48">
-                  Disallowed Outlier
-                </text>
-                <text x="26" y="26" fontSize="10" fontFamily="system-ui, sans-serif" fill="#64748b">
-                  Unfavorable steric clash
-                </text>
-              </g>
-
-              <line x1="16" y1="256" x2="224" y2="256" stroke="#e2e8f0" strokeWidth="1" />
-
-              {/* Markers Section Header */}
-              <text
-                x="16"
-                y="278"
-                fontSize="12"
-                fontWeight="700"
-                fontFamily="system-ui, -apple-system, sans-serif"
-                fill="#0f172a"
-              >
-                Residue Symbols
-              </text>
-
-              {/* General Residue Marker */}
-              <g transform="translate(16, 298)">
-                <circle cx="8" cy="8" r="4.5" fill="#000000" stroke="#ffffff" strokeWidth="0.8" />
-                <text x="26" y="12" fontSize="11.5" fontFamily="system-ui, sans-serif" fill="#334155">
-                  General Residues (●)
-                </text>
-              </g>
-
-              {/* Glycine Marker */}
-              <g transform="translate(16, 332)">
-                <polygon points="8,3 13,13 3,13" fill="#000000" stroke="#ffffff" strokeWidth="0.8" />
-                <text x="26" y="12" fontSize="11.5" fontFamily="system-ui, sans-serif" fill="#334155">
-                  Glycine (▲)
-                </text>
-              </g>
-
-              <line x1="16" y1="365" x2="224" y2="365" stroke="#e2e8f0" strokeWidth="1" />
-
-              {/* Stereochemical Quality Information Card inside exported image */}
-              <g transform="translate(14, 380)">
-                <rect x="0" y="0" width="212" height="150" rx="4" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1" />
-                <text x="12" y="20" fontSize="11" fontWeight="700" fontFamily="system-ui, sans-serif" fill="#0f766e">
-                  Quality Thresholds
-                </text>
-                <text x="12" y="38" fontSize="10" fontFamily="system-ui, sans-serif" fill="#475569">
-                  Well-refined protein models
-                </text>
-                <text x="12" y="52" fontSize="10" fontFamily="system-ui, sans-serif" fill="#475569">
-                  typically exhibit:
-                </text>
-
-                <text x="12" y="76" fontSize="10.5" fontWeight="600" fontFamily="system-ui, sans-serif" fill="#0f172a">
-                  • Favored: &gt;90.0%
-                </text>
-                <text x="12" y="94" fontSize="10.5" fontWeight="600" fontFamily="system-ui, sans-serif" fill="#0f172a">
-                  • Allowed: &gt;98.0%
-                </text>
-                <text x="12" y="112" fontSize="10.5" fontWeight="600" fontFamily="system-ui, sans-serif" fill="#e11d48">
-                  • Outliers: &lt;1.5%
-                </text>
-                <text x="12" y="134" fontSize="9.5" fontFamily="system-ui, sans-serif" fill="#64748b">
-                  Plotted residues: {filteredResidues.length}
+                <text x="26" y="13" fontSize="12" fontWeight="500" fontFamily="system-ui, sans-serif" fill="#1e293b">
+                  Disallowed Outlier <tspan fontWeight="600" fill="#e11d48">({outlierPercent}%)</tspan>
                 </text>
               </g>
             </g>
@@ -658,13 +576,13 @@ export default function RamachandranPlot({
               
               // Place tooltip card to the right or left of point to prevent clipping
               let cardX = ptX + 12;
-              if (cardX + cardWidth > padding + plotArea) {
+              if (cardX + cardWidth > paddingLeft + plotArea) {
                 cardX = ptX - cardWidth - 12;
               }
               
               let cardY = ptY - cardHeight / 2;
-              if (cardY < padding + 8) cardY = padding + 8;
-              if (cardY + cardHeight > svgHeight - padding - 8) cardY = svgHeight - padding - cardHeight - 8;
+              if (cardY < paddingTop + 8) cardY = paddingTop + 8;
+              if (cardY + cardHeight > svgHeight - paddingBottom - 8) cardY = svgHeight - paddingBottom - cardHeight - 8;
 
               return (
                 <g id="interactive-floating-tooltip" className="pointer-events-none transition-all duration-100">
@@ -756,7 +674,7 @@ export default function RamachandranPlot({
         </div>
 
         {/* Footer info below plot */}
-        <div className="mt-3 flex items-center justify-between w-full max-w-[920px] text-xs text-slate-500 font-sans px-1">
+        <div className="mt-3 flex items-center justify-between w-full max-w-[950px] text-xs text-slate-500 font-sans px-1">
           <span>Showing {filteredResidues.length} of {residues.length} plotted residues</span>
           <span className="font-mono">Hover any residue point on the plot to view exact (φ, ψ) angles</span>
         </div>

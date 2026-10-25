@@ -19,8 +19,29 @@ export interface ProcheckContour {
 function smoothPolygon(inputPoints: [number, number][], isClosed: boolean = true, subdivisions: number = 4): [number, number][] {
   if (inputPoints.length < 3) return inputPoints;
 
-  const pts: [number, number][] = [...inputPoints];
+  // Sanitize points: remove duplicate adjacent points and duplicate closing endpoints
+  // which cause 0-length tangent vectors, producing unnatural loops/kinks in Catmull-Rom splines
+  const clean: [number, number][] = [];
+  for (let i = 0; i < inputPoints.length; i++) {
+    const p = inputPoints[i];
+    const prev = clean[clean.length - 1];
+    if (!prev || Math.hypot(p[0] - prev[0], p[1] - prev[1]) > 0.001) {
+      clean.push(p);
+    }
+  }
+
+  if (
+    isClosed &&
+    clean.length > 2 &&
+    Math.hypot(clean[0][0] - clean[clean.length - 1][0], clean[0][1] - clean[clean.length - 1][1]) < 0.001
+  ) {
+    clean.pop();
+  }
+
+  const pts: [number, number][] = clean;
   const n = pts.length;
+  if (n < 3) return inputPoints;
+
   const result: [number, number][] = [];
 
   for (let i = 0; i < n; i++) {
