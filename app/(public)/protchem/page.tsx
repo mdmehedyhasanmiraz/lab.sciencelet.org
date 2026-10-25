@@ -4,11 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { 
   ArrowRight, 
-  FlaskConical, 
   RotateCcw, 
   FileText, 
-  BookOpen, 
-  Layers,
   Binary,
   AlertCircle,
   Loader2
@@ -307,39 +304,6 @@ LQVGQVELGGGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLENYCN`}
             </div>
           </div>
         </form>
-
-        {/* Feature & Scientific Validity Cards */}
-        <div className="mt-8 grid sm:grid-cols-3 gap-4">
-          <div className="p-5 rounded-md bg-white border border-slate-200 shadow-sm">
-            <div className="w-8 h-8 rounded bg-teal-50 text-teal-800 flex items-center justify-center mb-3">
-              <FlaskConical className="w-4 h-4" />
-            </div>
-            <h3 className="font-semibold text-slate-900 text-sm mb-1.5">Validated Algorithms</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Computes isoelectric points, instability index, extinction coefficient, aliphatic index, and GRAVY scores using validated scientific literature.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-md bg-white border border-slate-200 shadow-sm">
-            <div className="w-8 h-8 rounded bg-teal-50 text-teal-800 flex items-center justify-center mb-3">
-              <Layers className="w-4 h-4" />
-            </div>
-            <h3 className="font-semibold text-slate-900 text-sm mb-1.5">Solubility & Folding</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Provides heuristic estimations for solubility, aggregation risk, and hydrophobic moments to guide expression and purification protocols.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-md bg-white border border-slate-200 shadow-sm">
-            <div className="w-8 h-8 rounded bg-teal-50 text-teal-800 flex items-center justify-center mb-3">
-              <BookOpen className="w-4 h-4" />
-            </div>
-            <h3 className="font-semibold text-slate-900 text-sm mb-1.5">Direct Citations</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Every calculated metric is paired with its original peer-reviewed publication and PubMed link for transparent citation in scientific papers.
-            </p>
-          </div>
-        </div>
       </div>
     </main>
   );
