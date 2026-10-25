@@ -7,7 +7,8 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: "Home", route: "/" },
-  { label: "ProtChem", route: "/protchem" },
+  { label: "ProtIndex", route: "/protindex" },
+  { label: "ProtAssess", route: "/protassess" },
 ];
 
 export default function Header() {

@@ -47,7 +47,7 @@ export default function ResultsContent() {
   }, [sequence]);
 
   if (!sequence) {
-    router.push("/protchem");
+    router.push("/protindex");
     return null;
   }
 
@@ -70,7 +70,7 @@ export default function ResultsContent() {
   const handleShare = async () => {
     if (navigator.share) {
       await navigator.share({
-        title: "ProtChem Analysis Results",
+        title: "ProtIndex Analysis Results",
         url: window.location.href
       });
     } else {
@@ -102,14 +102,14 @@ export default function ResultsContent() {
             </div>
             {/* Replaced header with the actual tool name */}
             <h1 className="text-3xl font-bold tracking-tight text-white">
-              ProtChem
+              ProtIndex
             </h1>
           </div>
 
           {/* Action buttons */}
           <div className="flex items-center gap-2.5">
             <button
-              onClick={() => router.push("/protchem")}
+              onClick={() => router.push("/protindex")}
               className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-medium text-white bg-teal-800 hover:bg-teal-700 rounded transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />

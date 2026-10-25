@@ -41,8 +41,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/protchem" className="hover:text-white transition-colors">
-                  ProtChem Analyzer
+                <Link href="/protindex" className="hover:text-white transition-colors">
+                  ProtIndex Analyzer
+                </Link>
+              </li>
+              <li>
+                <Link href="/protassess" className="hover:text-white transition-colors">
+                  ProtAssess Ramachandran
                 </Link>
               </li>
               <li>
@@ -64,7 +69,7 @@ const Footer = () => {
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
                 <a
-                  href="https://github.com/mdmehedyhasanmiraz/lab.oimi.io"
+                  href="https://github.com/mdmehedyhasanmiraz"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 hover:text-white transition-colors"

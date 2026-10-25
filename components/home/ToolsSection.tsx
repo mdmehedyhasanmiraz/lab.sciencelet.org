@@ -33,7 +33,7 @@ const ToolsSection = () => {
                   <div>
                     <span className="text-xs font-bold text-teal-600 tracking-wider uppercase">Active Release v1.0</span>
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                      ProtChem
+                      ProtIndex
                     </h3>
                   </div>
                 </div>
@@ -62,14 +62,14 @@ const ToolsSection = () => {
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-6 border-t border-slate-100">
                 <Link
-                  href="/protchem"
+                  href="/protindex"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-md shadow-teal-600/20 transition-all text-sm group/btn"
                 >
-                  <span>Launch ProtChem</span>
+                  <span>Launch ProtIndex</span>
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                 </Link>
                 <Link
-                  href="/protchem"
+                  href="/protindex"
                   className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm transition-colors"
                 >
                   <FileSpreadsheet className="w-4 h-4 text-slate-500" />
@@ -112,6 +112,103 @@ const ToolsSection = () => {
               <div className="mt-8 pt-4 border-t border-teal-800/60 flex items-center gap-2 text-xs text-teal-300/80">
                 <Zap className="w-4 h-4 text-teal-400 shrink-0" />
                 <span>Runs securely in your browser with zero latency</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ProtAssess Featured Tool Card */}
+        <div className="relative group max-w-5xl mx-auto mt-10">
+          <div className="relative bg-white rounded-2xl border border-teal-100 shadow-xl overflow-hidden grid lg:grid-cols-12 gap-0">
+            {/* Left Info Panel */}
+            <div className="p-8 sm:p-10 lg:col-span-7 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2.5 rounded-xl bg-teal-600 text-white shadow-md shadow-teal-600/30">
+                    <Activity className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-teal-600 tracking-wider uppercase">Active Release v1.0</span>
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                      ProtAssess
+                    </h3>
+                  </div>
+                </div>
+
+                <p className="text-slate-600 leading-relaxed mb-6 text-sm sm:text-base">
+                  A structural assessment and stereochemistry validation suite that parses PDB coordinate files to calculate backbone dihedral torsion angles (φ, ψ, ω) and generates publication-grade Ramachandran plots.
+                </p>
+
+                {/* Key Capabilities List */}
+                <div className="grid sm:grid-cols-2 gap-3 mb-8">
+                  {[
+                    "Client-Side PDB & ENT Coordinate Parsing",
+                    "Backbone Dihedral Angle Calculations (φ, ψ, ω)",
+                    "PROCHECK Favored, Allowed & Outlier Regions",
+                    "Specialized Glycine & Proline Classifications",
+                    "Direct RCSB PDB ID Structure Retrieval",
+                    "High-Resolution PNG and Vector SVG Plot Exports"
+                  ].map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
+                      <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-6 border-t border-slate-100">
+                <Link
+                  href="/protassess"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold shadow-md shadow-teal-600/20 transition-all text-sm group/btn"
+                >
+                  <span>Launch ProtAssess</span>
+                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="/protassess"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm transition-colors"
+                >
+                  <FileSpreadsheet className="w-4 h-4 text-slate-500" />
+                  <span>Try 1CRN Benchmark</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Preview Showcase */}
+            <div className="bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 p-8 sm:p-10 lg:col-span-5 text-white flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-teal-800/40">
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-teal-800/60 mb-6">
+                  <div className="flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-teal-400" />
+                    <span className="text-xs font-bold text-teal-200 uppercase tracking-wider">Ramachandran Stereochemistry</span>
+                  </div>
+                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-teal-800/60 text-teal-300 font-mono">PDB/ENT</span>
+                </div>
+
+                <div className="space-y-3 font-mono text-xs">
+                  <div className="p-3 rounded-lg bg-teal-950/60 border border-teal-800/40 flex justify-between items-center">
+                    <span className="text-teal-300/80">Most Favored</span>
+                    <span className="text-sky-300 font-bold">&gt;90.0% (Core)</span>
+                  </div>
+                  <div className="p-3 rounded-lg bg-teal-950/60 border border-teal-800/40 flex justify-between items-center">
+                    <span className="text-teal-300/80">Additionally Allowed</span>
+                    <span className="text-amber-300 font-bold">~8.0% (Permitted)</span>
+                  </div>
+                  <div className="p-3 rounded-lg bg-teal-950/60 border border-teal-800/40 flex justify-between items-center">
+                    <span className="text-teal-300/80">Disallowed Outliers</span>
+                    <span className="text-rose-400 font-bold">&lt;1.5% (Steric Clashes)</span>
+                  </div>
+                  <div className="p-3 rounded-lg bg-teal-950/60 border border-teal-800/40 flex justify-between items-center">
+                    <span className="text-teal-300/80">Plot Vector Export</span>
+                    <span className="text-teal-200 font-bold">SVG / PNG (2x)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-4 border-t border-teal-800/60 flex items-center gap-2 text-xs text-teal-300/80">
+                <Zap className="w-4 h-4 text-teal-400 shrink-0" />
+                <span>Zero server upload — parsed directly in your browser</span>
               </div>
             </div>
           </div>

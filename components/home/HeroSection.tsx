@@ -34,11 +34,11 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mb-14">
             <Link
-              href="/protchem"
+              href="/protindex"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-semibold shadow-lg shadow-teal-500/25 hover:shadow-teal-400/35 transition-all duration-200 transform hover:-translate-y-0.5"
             >
               <Dna className="w-5 h-5 text-slate-950" />
-              Launch ProtChem Tool
+              Launch ProtIndex Tool
               <ArrowRight className="w-4 h-4 text-slate-950" />
             </Link>
             <a

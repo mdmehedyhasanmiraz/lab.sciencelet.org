@@ -12,7 +12,7 @@ export const metadata = {
     "Sciencelet",
     "Bioinformatics Lab",
     "Computational Biology",
-    "ProtChem",
+    "ProtIndex",
     "Protein Sequence Analysis",
     "Genomics",
     "Structural Biology"

@@ -5,17 +5,17 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/pepcheck',
-        destination: '/protchem',
+        destination: '/protindex',
         permanent: true,
       },
       {
         source: '/pepcheck/results',
-        destination: '/protchem/results',
+        destination: '/protindex/results',
         permanent: true,
       },
       {
         source: '/pepcheck/:path*',
-        destination: '/protchem/:path*',
+        destination: '/protindex/:path*',
         permanent: true,
       },
     ];

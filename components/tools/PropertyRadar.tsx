@@ -213,7 +213,7 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
 
     const link = document.createElement("a");
     link.href = url;
-    link.download = `protchem-radar-${Date.now()}.svg`;
+    link.download = `protindex-radar-${Date.now()}.svg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -243,7 +243,7 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
     const image = new Image();
     image.crossOrigin = "anonymous";
     image.onload = () => {
-      const scale = 2; // 2x high-resolution crisp export (1760 x 1240 px)
+      const scale = 2; // 2x high-resolution crisp export (2120 x 1200 px)
       const canvas = document.createElement("canvas");
       canvas.width = width * scale;
       canvas.height = height * scale;
@@ -260,7 +260,7 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
 
         const link = document.createElement("a");
         link.href = pngUrl;
-        link.download = `protchem-radar-${transparent ? "transparent" : "white"}-${Date.now()}.png`;
+        link.download = `protindex-radar-${transparent ? "transparent" : "white"}-${Date.now()}.png`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
