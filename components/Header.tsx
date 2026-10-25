@@ -7,7 +7,7 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: "Home", route: "/" },
-  { label: "ProtChem", route: "/protchem"},
+  { label: "ProtChem", route: "/protchem" },
 ];
 
 export default function Header() {
@@ -47,14 +47,6 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
-          <a
-            href="https://github.com/mdmehedyhasanmiraz/lab.oimi.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-2 px-3 py-1.5 text-xs font-semibold text-teal-800 bg-teal-50 border border-teal-200/80 rounded-md hover:bg-teal-100 transition-colors"
-          >
-            Open Source
-          </a>
         </nav>
 
         {/* Hamburger Menu */}
@@ -75,8 +67,8 @@ export default function Header() {
           <ul className="py-4 px-4 space-y-2">
             {navLinks.map((item) => (
               <li key={item.route}>
-                <Link 
-                  href={item.route} 
+                <Link
+                  href={item.route}
                   className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-teal-800 hover:bg-teal-50 rounded-md transition-colors"
                   onClick={() => setMenuOpen(false)}
                 >

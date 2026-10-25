@@ -63,9 +63,9 @@ const Footer = () => {
             <h4 className="text-xs font-bold text-teal-300 uppercase tracking-wider mb-3">Community</h4>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
-                <a 
-                  href="https://github.com/mdmehedyhasanmiraz/lab.oimi.io" 
-                  target="_blank" 
+                <a
+                  href="https://github.com/mdmehedyhasanmiraz/lab.oimi.io"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
                 >
@@ -74,7 +74,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a 
+                <a
                   href="mailto:mehedy.1872@gmail.com"
                   className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
                 >
@@ -83,9 +83,9 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a 
-                  href="https://sciencelet.org" 
-                  target="_blank" 
+                <a
+                  href="https://sciencelet.org"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
                 >
@@ -106,9 +106,9 @@ const Footer = () => {
           </div>
           <div className="text-center sm:text-right">
             <p>
-              Open source & research content licensed under{' '}
-              <a 
-                href="http://creativecommons.org/licenses/by-nc/4.0/" 
+              Licensed under{' '}
+              <a
+                href="http://creativecommons.org/licenses/by-nc/4.0/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-teal-200 hover:text-white underline decoration-teal-500 hover:decoration-teal-300 transition-colors"
