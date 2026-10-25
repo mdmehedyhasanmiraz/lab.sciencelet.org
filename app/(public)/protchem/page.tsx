@@ -6,6 +6,7 @@ import {
   ArrowRight, 
   RotateCcw, 
   FileText, 
+  FlaskConical,
   Binary,
   AlertCircle,
   Loader2
