@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ProtIndex: Physicochemical & Biophysical Sequence Analyzer
 
-## Getting Started
+[![License: MIT](https://img.shields.io/badge/License-MIT-teal.svg)](https://opensource.org/licenses/MIT)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-First, run the development server:
+An open-source, web-based computational biology platform developed by **Sciencelet Lab** for deterministic physicochemical and biophysical profiling of proteins and peptides.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Features
+
+- **Physicochemical Summary**: Molecular weight, isoelectric point ($pI$), GRAVY index, extinction coefficients ($\epsilon_{280}$), instability index, aliphatic index, Boman index, partial specific volume ($v$), and bound hydration water.
+- **Biophysical Plots**:
+  - **Net Charge vs. pH Titration Curve**: Henderson-Hasselbalch / Bjellqvist pKa titration model ($\text{pH } 2 \to 12$).
+  - **Kyte-Doolittle Hydropathy Profile**: Interactive sliding-window hydropathy line chart ($7, 9, 13, 19, 21$ residues) with transmembrane core threshold markers.
+  - **$\alpha$-Helical Wheel Projection**: 2D polar projection ($100^\circ$ per residue) for visual amphipathic segregation analysis.
+  - **Biophysical Property Radar**: 10-axis comparative multivariate profile.
+- **High-Resolution Vector & Image Exports**: 2x high-resolution PNG (Solid White & Transparent) and SVG export options with integrated white-background legends for publication figures.
+
+---
+
+## Citation
+
+If you use ProtIndex in published academic research, benchmarking, or educational material, please cite the web application:
+
+```bibtex
+@misc{protindex2026,
+  author = {Miraz, Md Mehedy Hasan and Ferdousy, Tanbin Jahan and Risat, Md Tahsinul Haque},
+  title = {ProtIndex: A Web-Based Physicochemical & Biophysical Sequence Analyzer},
+  year = {2026},
+  publisher = {Sciencelet Lab},
+  url = {https://lab.sciencelet.org/protindex}
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**APA Format:**
+> Miraz, M. M. H., Ferdousy, T. J., & Risat, M. T. H. (2026). *ProtIndex: A Web-Based Physicochemical & Biophysical Sequence Analyzer*. Sciencelet Lab. https://lab.sciencelet.org/protindex
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Open Source Licensing
 
-## Learn More
+ProtIndex complies with the open access and code-sharing requirements of open-access journals (including PLOS ONE):
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Software Source Code**: Licensed under the [MIT License](LICENSE). Anyone who redistributes, forks, or copies the code is legally required to retain the copyright and attribution notices.
+- **Documentation & Scientific Content**: Licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).

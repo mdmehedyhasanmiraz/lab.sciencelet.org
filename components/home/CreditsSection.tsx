@@ -93,6 +93,20 @@ export default function CreditsSection() {
               and should be treated as qualitative guidance rather than experimental measurements.
             </p>
           </div>
+
+          {/* Citation & Open Source Licensing */}
+          <div className="pt-6 border-t border-gray-200">
+            <h2 className="text-lg font-bold text-gray-800 mb-2">How to Cite ProtIndex</h2>
+            <p className="mb-3">
+              If you use ProtIndex in published research or educational work, please cite the web application:
+            </p>
+            <div className="bg-white border border-gray-200 rounded p-4 font-mono text-xs text-gray-800 leading-relaxed overflow-x-auto select-all">
+              Miraz, M. M. H., Ferdousy, T. J., & Risat, M. T. H. ({new Date().getFullYear()}). ProtIndex: A Web-Based Physicochemical & Biophysical Sequence Analyzer. Sciencelet Lab. https://lab.sciencelet.org/protindex
+            </div>
+            <p className="mt-3 text-xs text-gray-600">
+              ProtIndex source code is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-800 underline">MIT Open Source License</a>. Text and documentation are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-800 underline">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>.
+            </p>
+          </div>
         </div>
       </section>
     );

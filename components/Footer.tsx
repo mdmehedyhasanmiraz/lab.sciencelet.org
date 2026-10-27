@@ -109,18 +109,30 @@ const Footer = () => {
               &copy; {new Date().getFullYear()} <strong className="text-white">Sciencelet Lab</strong>. All rights reserved.
             </p>
           </div>
-          <div className="text-center sm:text-right">
-            <p>
-              Licensed under{' '}
+          <div className="text-center sm:text-right space-x-2">
+            <span>
+              Source Code under{' '}
               <a
-                href="http://creativecommons.org/licenses/by-nc/4.0/"
+                href="https://opensource.org/licenses/MIT"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-teal-200 hover:text-white underline decoration-teal-500 hover:decoration-teal-300 transition-colors"
               >
-                CC BY-NC 4.0
+                MIT License
               </a>
-            </p>
+            </span>
+            <span>•</span>
+            <span>
+              Content under{' '}
+              <a
+                href="https://creativecommons.org/licenses/by/4.0/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-teal-200 hover:text-white underline decoration-teal-500 hover:decoration-teal-300 transition-colors"
+              >
+                CC BY 4.0
+              </a>
+            </span>
           </div>
         </div>
       </div>
