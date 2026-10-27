@@ -277,19 +277,8 @@ export default function HelicalWheelPlot({ sequence }: HelicalWheelPlotProps) {
           viewBox={`0 0 ${width} ${height}`}
           className="w-full max-w-[800px] h-auto font-sans"
         >
-          {/* Top Legend Bar (White background, exported with image) */}
+          {/* Top Legend Bar (Clean borderless & transparent) */}
           <g id="helical-wheel-legend">
-            <rect
-              x={40}
-              y={10}
-              width={width - 80}
-              height={36}
-              rx={6}
-              fill="#ffffff"
-              stroke="#e2e8f0"
-              strokeWidth="1"
-            />
-
             {/* Hydrophobic */}
             <circle cx={70} cy={28} r={6} fill="#fef3c7" stroke="#f59e0b" strokeWidth="1.5" />
             <text x={82} y={32} fill="#334155" fontSize="11" fontWeight="500">

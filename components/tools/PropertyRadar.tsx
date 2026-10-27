@@ -355,19 +355,8 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
             viewBox={`0 0 ${width} ${height}`} 
             className="overflow-visible max-w-full h-auto select-none font-sans"
           >
-            {/* Top Legend Bar (White background, exported with image) */}
+            {/* Top Legend Bar (Clean borderless & transparent) */}
             <g id="radar-legend">
-              <rect
-                x={centerX - 240}
-                y={15}
-                width={480}
-                height={34}
-                rx={6}
-                fill="#ffffff"
-                stroke="#e2e8f0"
-                strokeWidth="1"
-              />
-
               {/* Sample Profile Polygon */}
               <polygon
                 points={`${centerX - 215},32 ${centerX - 200},24 ${centerX - 190},36`}

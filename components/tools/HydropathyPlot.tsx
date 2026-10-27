@@ -254,19 +254,8 @@ export default function HydropathyPlot({ sequence }: HydropathyPlotProps) {
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-auto max-h-[400px] font-sans"
         >
-          {/* Top Legend Bar (White background, exported with image) */}
+          {/* Top Legend Bar (Clean borderless & transparent) */}
           <g id="hydropathy-legend">
-            <rect
-              x={paddingLeft}
-              y={10}
-              width={plotWidth}
-              height={36}
-              rx={6}
-              fill="#ffffff"
-              stroke="#e2e8f0"
-              strokeWidth="1"
-            />
-
             {/* Item 1: Hydropathy Curve */}
             <line
               x1={paddingLeft + 16}

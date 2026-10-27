@@ -234,19 +234,8 @@ export default function ChargeCurvePlot({
             </linearGradient>
           </defs>
 
-          {/* Top Legend Bar (White background, exported with image) */}
+          {/* Top Legend Bar (Clean borderless & transparent) */}
           <g id="chart-legend">
-            <rect
-              x={paddingLeft}
-              y={10}
-              width={plotWidth}
-              height={36}
-              rx={6}
-              fill="#ffffff"
-              stroke="#e2e8f0"
-              strokeWidth="1"
-            />
-
             {/* Legend Item 1: Curve */}
             <line
               x1={paddingLeft + 16}
