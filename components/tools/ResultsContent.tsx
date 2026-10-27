@@ -11,7 +11,8 @@ import {
   FlaskConical, 
   PieChart, 
   Atom, 
-  Binary 
+  Binary,
+  LineChart
 } from "lucide-react";
 import { calculateProperties, type ProteinProperties } from "@/lib/utils/calculateProperties";
 import PhysicochemicalSummary from "./PhysicochemicalSummary";
@@ -20,10 +21,14 @@ import AliphaticIndex from "./AliphaticIndex";
 import AtomCount from "./AtomCount";
 import AminoAcidComposition from "./AminoAcidComposition";
 import PropertyRadar from "./PropertyRadar";
+import ChargeCurvePlot from "./ChargeCurvePlot";
+import HydropathyPlot from "./HydropathyPlot";
+import HelicalWheelPlot from "./HelicalWheelPlot";
+import FoldIndexPlot from "./FoldIndexPlot";
 import CreditsSection from "@/components/home/CreditsSection";
 import AnalysisProgress from "./AnalysisProgress";
 
-type TabId = "physicochemical" | "composition" | "atomic" | "aminoAcids";
+type TabId = "physicochemical" | "plots" | "composition" | "atomic" | "aminoAcids";
 
 export default function ResultsContent() {
   const searchParams = useSearchParams();
@@ -81,6 +86,7 @@ export default function ResultsContent() {
 
   const tabs: { id: TabId; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
     { id: "physicochemical", label: "Physicochemical Properties", icon: FlaskConical },
+    { id: "plots", label: "Biophysical Plots", icon: LineChart },
     { id: "composition", label: "Composition & Residue Classes", icon: PieChart },
     { id: "atomic", label: "Atomic Composition", icon: Atom },
     { id: "aminoAcids", label: "Amino Acid Composition", icon: Binary },
@@ -190,8 +196,39 @@ export default function ResultsContent() {
           {/* Active Tab Table Display (Full Width, Cardless, Borderless Table presentation) */}
           <div className="pt-6 w-full">
             {activeTab === "physicochemical" && (
-              <div className="w-full">
+              <div className="w-full space-y-8">
                 <PhysicochemicalSummary properties={properties} />
+                <div className="pt-4 space-y-6">
+                  <ChargeCurvePlot
+                    chargeCurve={properties.chargeCurve}
+                    pI={properties.pI}
+                    netChargePH74={properties.netChargePH74}
+                  />
+                  <HydropathyPlot sequence={sequence} />
+                  <FoldIndexPlot
+                    foldIndexProfile={properties.foldIndexProfile}
+                    meanScore={properties.foldIndexMean}
+                    classification={properties.foldIndexClass}
+                  />
+                  <HelicalWheelPlot sequence={sequence} />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "plots" && (
+              <div className="w-full space-y-8">
+                <ChargeCurvePlot
+                  chargeCurve={properties.chargeCurve}
+                  pI={properties.pI}
+                  netChargePH74={properties.netChargePH74}
+                />
+                <HydropathyPlot sequence={sequence} />
+                <FoldIndexPlot
+                  foldIndexProfile={properties.foldIndexProfile}
+                  meanScore={properties.foldIndexMean}
+                  classification={properties.foldIndexClass}
+                />
+                <HelicalWheelPlot sequence={sequence} />
               </div>
             )}
 

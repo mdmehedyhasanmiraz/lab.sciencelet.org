@@ -355,6 +355,57 @@ export default function PropertyRadar({ properties }: PropertyRadarProps) {
             viewBox={`0 0 ${width} ${height}`} 
             className="overflow-visible max-w-full h-auto select-none font-sans"
           >
+            {/* Top Legend Bar (White background, exported with image) */}
+            <g id="radar-legend">
+              <rect
+                x={centerX - 240}
+                y={15}
+                width={480}
+                height={34}
+                rx={6}
+                fill="#ffffff"
+                stroke="#e2e8f0"
+                strokeWidth="1"
+              />
+
+              {/* Sample Profile Polygon */}
+              <polygon
+                points={`${centerX - 215},32 ${centerX - 200},24 ${centerX - 190},36`}
+                fill="#ea580c"
+                fillOpacity="0.4"
+                stroke="#ea580c"
+                strokeWidth="1.5"
+              />
+              <text
+                x={centerX - 180}
+                y={36}
+                fill="#334155"
+                fontSize="11"
+                fontWeight="500"
+              >
+                Calculated Protein Profile
+              </text>
+
+              {/* Reference Grid lines */}
+              <line
+                x1={centerX + 20}
+                y1={32}
+                x2={centerX + 40}
+                y2={32}
+                stroke="#cbd5e1"
+                strokeWidth="1.2"
+                strokeDasharray="2 2"
+              />
+              <text
+                x={centerX + 46}
+                y={36}
+                fill="#64748b"
+                fontSize="11"
+              >
+                Benchmark Ranges (25%, 50%, 75%, 100%)
+              </text>
+            </g>
+
             {/* Concentric Web Rings */}
             {levels.map((level, lvlIdx) => {
               const ringPoints = axes
