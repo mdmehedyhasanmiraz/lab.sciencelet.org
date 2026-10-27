@@ -25,8 +25,6 @@ export interface ProteinProperties {
   partialSpecificVolume: number; // Cohn & Edsall (1943) cm³/g
   boundWaterPerGram: number; // Kuntz & Kauzmann (1974) g H2O / g protein
   sequenceComplexity: number; // Shannon entropy (bits, 0-4.32)
-  foldIndexMean: number; // Prilusky / Uversky disorder index (>0 folded, <0 disordered)
-  foldIndexClass: "Folded" | "Disordered";
   hydrophobicResidueFraction: number;
   hydrophobicMomentHelixMax: number; // max windowed (alpha-helix, 100° per residue)
   hydropathyWindowMeanMax: number;
@@ -34,7 +32,6 @@ export interface ProteinProperties {
   // Primary sequence physicochemical profiles
   hydropathyProfile: Array<{ position: number; residue: string; score: number }>;
   chargeProfile: Array<{ position: number; residue: string; score: number }>;
-  foldIndexProfile: Array<{ position: number; residue: string; score: number }>;
 
   // Acid/base summary (simple counts)
   acidicCount: number;
@@ -382,47 +379,6 @@ function computeSequenceComplexity(aaCounts: Record<string, number>, length: num
   return entropy;
 }
 
-// Normalized Kyte-Doolittle hydropathy (0 to 1) for FoldIndex: (KD + 4.5) / 9.0
-function normalizedHydropathy(aa: string): number {
-  const kd = aminoAcidData[aa]?.hydropathy ?? 0;
-  return (kd + 4.5) / 9.0;
-}
-
-// FoldIndex: Prilusky et al. (2005) Bioinformatics 21:3435-3438; Uversky et al. (2000)
-// FoldIndex = 2.785 * <H> - |<R>| - 1.151
-// where <H> is normalized Kyte-Doolittle (0-1) and <R> is mean absolute net charge per residue
-export function computeFoldIndexProfile(sequence: string, windowSize = 21): Array<{ position: number; residue: string; score: number }> {
-  if (!sequence || sequence.length === 0) return [];
-  const half = Math.floor(windowSize / 2);
-  const result: Array<{ position: number; residue: string; score: number }> = [];
-
-  for (let i = 0; i < sequence.length; i++) {
-    const start = Math.max(0, i - half);
-    const end = Math.min(sequence.length, i + half + 1);
-    const len = end - start;
-
-    let hSum = 0;
-    let netCharge = 0;
-    for (let j = start; j < end; j++) {
-      const aa = sequence[j];
-      hSum += normalizedHydropathy(aa);
-      if (aa === 'K' || aa === 'R') netCharge += 1;
-      else if (aa === 'D' || aa === 'E') netCharge -= 1;
-    }
-
-    const meanH = len > 0 ? hSum / len : 0.5;
-    const meanR = len > 0 ? Math.abs(netCharge) / len : 0;
-    const foldIndex = 2.785 * meanH - meanR - 1.151;
-
-    result.push({
-      position: i + 1,
-      residue: sequence[i],
-      score: parseFloat(foldIndex.toFixed(3)),
-    });
-  }
-  return result;
-}
-
 function computeMolecularFormula(atomCount: Record<string, number>): string {
   const subscript = (n: number) => n.toString().split('').map(d => String.fromCharCode(8320 + parseInt(d))).join('');
   const elements = ['C', 'H', 'N', 'O', 'S'];
@@ -567,14 +523,6 @@ export function calculateProperties(sequence: string): ProteinProperties {
   // Sequence Complexity / Shannon Entropy (bits)
   const sequenceComplexity = computeSequenceComplexity(aminoAcidCount, length);
 
-  // FoldIndex Intrinsic Disorder Profile & Global Score (Prilusky 2005, Uversky 2000)
-  const foldIndexProfile = computeFoldIndexProfile(cleanSeq, Math.min(21, Math.max(5, length)));
-  const foldIndexMean =
-    foldIndexProfile.length > 0
-      ? foldIndexProfile.reduce((acc, p) => acc + p.score, 0) / foldIndexProfile.length
-      : 0;
-  const foldIndexClass: "Folded" | "Disordered" = foldIndexMean >= 0 ? "Folded" : "Disordered";
-
   // Profiles
   const hydropathyProfile = computeHydropathyProfile(cleanSeq, 9);
   const chargeProfile = computeChargeProfile(cleanSeq, 7);
@@ -625,14 +573,11 @@ export function calculateProperties(sequence: string): ProteinProperties {
     partialSpecificVolume: parseFloat(partialSpecificVolume.toFixed(3)),
     boundWaterPerGram: parseFloat(boundWaterPerGram.toFixed(3)),
     sequenceComplexity: parseFloat(sequenceComplexity.toFixed(2)),
-    foldIndexMean: parseFloat(foldIndexMean.toFixed(3)),
-    foldIndexClass,
     hydrophobicResidueFraction: parseFloat(hydrophobicResidueFraction.toFixed(4)),
     hydrophobicMomentHelixMax: parseFloat(hydrophobicMomentHelixMax.toFixed(4)),
     hydropathyWindowMeanMax: parseFloat(hydropathyWindowMeanMax.toFixed(3)),
     hydropathyProfile,
     chargeProfile,
-    foldIndexProfile,
     acidicCount,
     basicCount,
     acidicPercentage: parseFloat(acidicPercentage.toFixed(2)),

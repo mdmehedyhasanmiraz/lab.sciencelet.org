@@ -24,7 +24,6 @@ import PropertyRadar from "./PropertyRadar";
 import ChargeCurvePlot from "./ChargeCurvePlot";
 import HydropathyPlot from "./HydropathyPlot";
 import HelicalWheelPlot from "./HelicalWheelPlot";
-import FoldIndexPlot from "./FoldIndexPlot";
 import CreditsSection from "@/components/home/CreditsSection";
 import AnalysisProgress from "./AnalysisProgress";
 
@@ -205,11 +204,6 @@ export default function ResultsContent() {
                     netChargePH74={properties.netChargePH74}
                   />
                   <HydropathyPlot sequence={sequence} />
-                  <FoldIndexPlot
-                    foldIndexProfile={properties.foldIndexProfile}
-                    meanScore={properties.foldIndexMean}
-                    classification={properties.foldIndexClass}
-                  />
                   <HelicalWheelPlot sequence={sequence} />
                 </div>
               </div>
@@ -223,11 +217,6 @@ export default function ResultsContent() {
                   netChargePH74={properties.netChargePH74}
                 />
                 <HydropathyPlot sequence={sequence} />
-                <FoldIndexPlot
-                  foldIndexProfile={properties.foldIndexProfile}
-                  meanScore={properties.foldIndexMean}
-                  classification={properties.foldIndexClass}
-                />
                 <HelicalWheelPlot sequence={sequence} />
               </div>
             )}

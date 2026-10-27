@@ -79,11 +79,6 @@ export default function PhysicochemicalSummary({ properties }: Props) {
       reference: { text: "Wootton & Federhen (1993)", url: "https://pubmed.ncbi.nlm.nih.gov/8344288/" },
     },
     {
-      label: "FoldIndex (intrinsic disorder)",
-      value: `${properties.foldIndexMean} (${properties.foldIndexClass})`,
-      reference: { text: "Prilusky et al. (2005)", url: "https://pubmed.ncbi.nlm.nih.gov/16096349/" },
-    },
-    {
       label: "Hydrophobic moment (α-helix, max window)",
       value: properties.hydrophobicMomentHelixMax,
       reference: { text: "Eisenberg et al. (1984)", url: "https://pubmed.ncbi.nlm.nih.gov/6582470/" },
