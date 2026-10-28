@@ -25,7 +25,7 @@ If you use ProtIndex in published academic research, benchmarking, or educationa
 
 ```bibtex
 @misc{protindex2026,
-  author = {Miraz, Md Mehedy Hasan and Ferdousy, Tanbin Jahan and Risat, Md Tahsinul Haque},
+  author = {Ferdousy, Tanbin Jahan and Miraz, Md Mehedy Hasan and Risat, Md Tahsinul Haque},
   title = {ProtIndex: A Web-Based Physicochemical & Biophysical Sequence Analyzer},
   year = {2026},
   publisher = {Sciencelet Lab},
@@ -34,7 +34,7 @@ If you use ProtIndex in published academic research, benchmarking, or educationa
 ```
 
 **APA Format:**
-> Miraz, M. M. H., Ferdousy, T. J., & Risat, M. T. H. (2026). *ProtIndex: A Web-Based Physicochemical & Biophysical Sequence Analyzer*. Sciencelet Lab. https://lab.sciencelet.org/protindex
+> Ferdousy, T. J., Miraz, M. M. H., & Risat, M. T. H. (2026). *ProtIndex: A Web-Based Physicochemical & Biophysical Sequence Analyzer*. Sciencelet Lab. https://lab.sciencelet.org/protindex
 
 ---
 
