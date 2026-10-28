@@ -59,26 +59,6 @@ export default function PhysicochemicalSummary({ properties }: Props) {
       reference: { text: "Ikai (1980)", url: "https://pubmed.ncbi.nlm.nih.gov/7462208/" },
     },
     {
-      label: "Boman index (binding potential)",
-      value: `${properties.bomanIndex} kcal/mol`,
-      reference: { text: "Boman (2003)", url: "https://pubmed.ncbi.nlm.nih.gov/12908861/" },
-    },
-    {
-      label: "Partial specific volume (v̄)",
-      value: `${properties.partialSpecificVolume} cm³/g`,
-      reference: { text: "Cohn & Edsall (1943)", url: "https://en.wikipedia.org/wiki/Partial_specific_volume" },
-    },
-    {
-      label: "Bound hydration water",
-      value: `${properties.boundWaterPerGram} g H₂O / g protein`,
-      reference: { text: "Kuntz & Kauzmann (1974)", url: "https://pubmed.ncbi.nlm.nih.gov/4612389/" },
-    },
-    {
-      label: "Sequence complexity (Shannon entropy)",
-      value: `${properties.sequenceComplexity} bits`,
-      reference: { text: "Wootton & Federhen (1993)", url: "https://pubmed.ncbi.nlm.nih.gov/8344288/" },
-    },
-    {
       label: "Hydrophobic moment (α-helix, max window)",
       value: properties.hydrophobicMomentHelixMax,
       reference: { text: "Eisenberg et al. (1984)", url: "https://pubmed.ncbi.nlm.nih.gov/6582470/" },

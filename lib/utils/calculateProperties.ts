@@ -21,10 +21,6 @@ export interface ProteinProperties {
   // Other common descriptors
   aromaticity: number; // fraction of (F+W+Y)
   aliphaticIndex: number; // Ikai (1980) relative volume of aliphatic side chains
-  bomanIndex: number; // Boman (2003) protein-binding potential (kcal/mol)
-  partialSpecificVolume: number; // Cohn & Edsall (1943) cm³/g
-  boundWaterPerGram: number; // Kuntz & Kauzmann (1974) g H2O / g protein
-  sequenceComplexity: number; // Shannon entropy (bits, 0-4.32)
   hydrophobicResidueFraction: number;
   hydrophobicMomentHelixMax: number; // max windowed (alpha-helix, 100° per residue)
   hydropathyWindowMeanMax: number;
@@ -235,44 +231,6 @@ function computeHydropathyWindowMeanMax(sequence: string, windowSize = 9): numbe
   return maxMean === -Infinity ? 0 : maxMean;
 }
 
-// Boman index: Boman HG (2003) Antibacterial peptides: basic facts and emerging concepts. J Intern Med 254:197-215.
-// Values represent free energy of transfer from water to cyclohexane (kcal/mol).
-const bomanValues: Readonly<Record<string, number>> = {
-  L: -4.92,
-  I: -4.92,
-  V: -4.04,
-  F: -2.98,
-  M: -2.35,
-  W: -2.33,
-  A: -1.81,
-  C: -1.28,
-  G: -0.94,
-  Y: -0.14,
-  T: 2.57,
-  S: 3.4,
-  H: 4.66,
-  Q: 5.54,
-  K: 5.55,
-  N: 6.64,
-  E: 6.81,
-  D: 8.72,
-  R: 9.38,
-  P: 0.0,
-};
-
-function computeBomanIndex(sequence: string): number {
-  if (!sequence || sequence.length === 0) return 0;
-  let sum = 0;
-  let validCount = 0;
-  for (const aa of sequence) {
-    if (bomanValues[aa] !== undefined) {
-      sum += bomanValues[aa];
-      validCount++;
-    }
-  }
-  return validCount > 0 ? sum / validCount : 0;
-}
-
 // Kyte-Doolittle sliding window profile
 export function computeHydropathyProfile(sequence: string, windowSize = 9): Array<{ position: number; residue: string; score: number }> {
   if (!sequence || sequence.length === 0) return [];
@@ -325,58 +283,6 @@ export function computeChargeProfile(sequence: string, windowSize = 7): Array<{ 
     });
   }
   return result;
-}
-
-// Cohn & Edsall (1943) partial specific volume v_bar (cm³/g)
-const partialSpecificVolumes: Readonly<Record<string, number>> = {
-  A: 0.74, R: 0.70, N: 0.62, D: 0.60, C: 0.63,
-  Q: 0.67, E: 0.66, G: 0.64, H: 0.67, I: 0.76,
-  L: 0.76, K: 0.82, M: 0.75, F: 0.77, P: 0.76,
-  S: 0.63, T: 0.70, W: 0.74, Y: 0.71, V: 0.75,
-};
-
-function computePartialSpecificVolume(aaCounts: Record<string, number>, length: number): number {
-  if (length === 0) return 0.73;
-  let weightedSum = 0;
-  let totalMass = 0;
-  for (const [aa, count] of Object.entries(aaCounts)) {
-    const mw = (aminoAcidData[aa]?.mw ?? 110) * count;
-    const v = partialSpecificVolumes[aa] ?? 0.73;
-    weightedSum += v * mw;
-    totalMass += mw;
-  }
-  return totalMass > 0 ? weightedSum / totalMass : 0.73;
-}
-
-// Kuntz & Kauzmann (1974) bound water per residue (moles H2O / mole residue)
-const boundWaterMoles: Readonly<Record<string, number>> = {
-  A: 1.5, R: 3.5, N: 2.0, D: 6.0, C: 1.0,
-  Q: 2.0, E: 7.5, G: 1.0, H: 4.0, I: 1.0,
-  L: 1.0, K: 4.5, M: 1.0, F: 0.0, P: 0.5,
-  S: 2.0, T: 2.0, W: 0.0, Y: 3.0, V: 1.0,
-};
-
-function computeBoundWaterPerGram(aaCounts: Record<string, number>, molecularWeight: number): number {
-  if (molecularWeight <= 0) return 0;
-  let totalWaterMoles = 0;
-  for (const [aa, count] of Object.entries(aaCounts)) {
-    totalWaterMoles += (boundWaterMoles[aa] ?? 1.5) * count;
-  }
-  const totalWaterGrams = totalWaterMoles * 18.015;
-  return totalWaterGrams / molecularWeight;
-}
-
-// Shannon Entropy / Sequence Complexity (bits, max = log2(20) ~ 4.3219)
-function computeSequenceComplexity(aaCounts: Record<string, number>, length: number): number {
-  if (length <= 0) return 0;
-  let entropy = 0;
-  for (const count of Object.values(aaCounts)) {
-    if (count > 0) {
-      const p = count / length;
-      entropy -= p * Math.log2(p);
-    }
-  }
-  return entropy;
 }
 
 function computeMolecularFormula(atomCount: Record<string, number>): string {
@@ -511,18 +417,6 @@ export function calculateProperties(sequence: string): ProteinProperties {
   const L = aminoAcidCount["L"] || 0;
   const aliphaticIndex = length > 0 ? ((A + 2.9 * V + 3.9 * (I + L)) / length) * 100 : 0;
 
-  // Boman Index (protein-binding potential)
-  const bomanIndex = computeBomanIndex(cleanSeq);
-
-  // Partial Specific Volume (v_bar) Cohn & Edsall 1943
-  const partialSpecificVolume = computePartialSpecificVolume(aminoAcidCount, length);
-
-  // Hydration Water (g H2O / g protein) Kuntz & Kauzmann 1974
-  const boundWaterPerGram = computeBoundWaterPerGram(aminoAcidCount, molecularWeight);
-
-  // Sequence Complexity / Shannon Entropy (bits)
-  const sequenceComplexity = computeSequenceComplexity(aminoAcidCount, length);
-
   // Profiles
   const hydropathyProfile = computeHydropathyProfile(cleanSeq, 9);
   const chargeProfile = computeChargeProfile(cleanSeq, 7);
@@ -569,10 +463,6 @@ export function calculateProperties(sequence: string): ProteinProperties {
     chargeCurve,
     aromaticity: parseFloat(aromaticity.toFixed(4)),
     aliphaticIndex: parseFloat(aliphaticIndex.toFixed(2)),
-    bomanIndex: parseFloat(bomanIndex.toFixed(2)),
-    partialSpecificVolume: parseFloat(partialSpecificVolume.toFixed(3)),
-    boundWaterPerGram: parseFloat(boundWaterPerGram.toFixed(3)),
-    sequenceComplexity: parseFloat(sequenceComplexity.toFixed(2)),
     hydrophobicResidueFraction: parseFloat(hydrophobicResidueFraction.toFixed(4)),
     hydrophobicMomentHelixMax: parseFloat(hydrophobicMomentHelixMax.toFixed(4)),
     hydropathyWindowMeanMax: parseFloat(hydropathyWindowMeanMax.toFixed(3)),
