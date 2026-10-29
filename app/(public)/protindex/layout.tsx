@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ProtIndex - Protein Sequence & Physicochemical Properties Calculator",
+  title: "ProtIndex - Biophysical & Physicochemical Analysis of Proteins",
   description:
     "ProtIndex is a high-throughput sequence analytics engine calculating 30+ physicochemical and biophysical parameters directly from raw or FASTA protein and peptide sequences. Compute isoelectric point (pI), molecular weight, GRAVY hydropathy, charge curves, and stability in real time.",
   keywords: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     canonical: "/protindex",
   },
   openGraph: {
-    title: "ProtIndex - Protein Sequence & Physicochemical Properties Calculator",
+    title: "ProtIndex - Biophysical & Physicochemical Analysis of Proteins",
     description:
       "Compute 30+ physicochemical and biophysical parameters directly from raw or FASTA protein and peptide sequences. Real-time, privacy-preserving computational sequence analytics.",
     url: "https://lab.sciencelet.org/protindex",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ProtIndex - Protein Sequence & Physicochemical Properties Calculator",
+    title: "ProtIndex - Biophysical & Physicochemical Analysis of Proteins",
     description:
       "Compute 30+ physicochemical and biophysical parameters directly from raw or FASTA protein and peptide sequences in real time.",
   },
