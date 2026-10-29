@@ -40,7 +40,7 @@ YGGFMTSEKSQTPLVTLFKNAIIKNAYKKGE`
   }
 ];
 
-export default function PepCheckInputPage() {
+export default function ProtIndexInputPage() {
   const [sequence, setSequence] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
